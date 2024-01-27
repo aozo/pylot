@@ -165,9 +165,9 @@ class PerfectDetectorOperator(erdos.Operator):
 
         # Log speed limits
         # Extract only necessary fields
-        json_speed_limit = []
+        json_speed_limits = []
         for speed_sign in det_speed_limits:
-            json_speed_limit.append(
+            json_speed_limits.append(
                 {'id': speed_sign.id,
                  'limit': speed_sign.speed_limit,
                  'bbox': speed_sign.bounding_box_2D,
@@ -175,24 +175,47 @@ class PerfectDetectorOperator(erdos.Operator):
             )
 
         # Prepare the complete json object
-        ground_obstacle_json = json.dumps([obj for obj in json_speed_limit], cls=CustomEncoder)
-        ground_obstacle_json = ground_obstacle_json.replace("\"", "")
-        ground_obstacle = {
+        ground_speed_limits_json = json.dumps([obj for obj in json_speed_limits], cls=CustomEncoder)
+        ground_speed_limits_json = ground_speed_limits_json.replace("\"", "")
+        ground_speed_limits = {
             "timestamp": "{}".format(timestamp),
-            "g_obstacles": ground_obstacle_json
+            "g_speed_limits": ground_speed_limits_json
         }
 
         # Append the json object to the json file
-        filename = "{}/ground_obstacles.json".format(self._flags.data_path)
+        filename = "{}/ground_speed_limits.json".format(self._flags.data_path)
         with open(filename, "a") as file:
-            json.dump(ground_obstacle, file)
+            json.dump(ground_speed_limits, file)
             file.write(os.linesep)
             file.close()
 
         det_stop_signs = get_detected_traffic_stops(stop_signs_msg.stop_signs,
                                                     depth_msg.frame)
 
-        # print(stop_signs_msg.stop_signs)
+        # Log stop signs
+        # Extract only necessary fields
+        json_stop_signs = []
+        for stop_sign in det_stop_signs:
+            json_stop_signs.append(
+                {'id': stop_sign.id,
+                 'bbox': stop_sign.bounding_box_2D,
+                }
+            )
+
+        # Prepare the complete json object
+        ground_stop_signs_json = json.dumps([obj for obj in json_stop_signs], cls=CustomEncoder)
+        ground_stop_signs_json = ground_stop_signs_json.replace("\"", "")
+        ground_stop_signs = {
+            "timestamp": "{}".format(timestamp),
+            "g_stop_signs": ground_stop_signs_json
+        }
+
+        # Append the json object to the json file
+        filename = "{}/ground_stop_signs.json".format(self._flags.data_path)
+        with open(filename, "a") as file:
+            json.dump(ground_stop_signs, file)
+            file.write(os.linesep)
+            file.close()
 
         det_obstacles = det_obstacles + det_speed_limits + det_stop_signs
 

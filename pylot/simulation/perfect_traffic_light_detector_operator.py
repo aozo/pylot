@@ -6,6 +6,22 @@ from erdos import Message, ReadStream, Timestamp, WriteStream
 from pylot.perception.messages import TrafficLightsMessage
 from pylot.simulation.utils import get_map, get_traffic_lights_obstacles
 
+import json
+import os
+from pylot.perception.detection.utils import BoundingBox2D
+
+class CustomEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, BoundingBox2D):
+            bbox = {
+                'xmin': "{}".format(obj.x_min),
+                'xmax': "{}".format(obj.x_max),
+                'ymin': "{}".format(obj.y_min),
+                'ymax': "{}".format(obj.y_max)
+            }
+            return bbox
+            
+        return obj.__dict__
 
 class PerfectTrafficLightDetectorOperator(erdos.Operator):
     """Uses info from the simulator to perfectly detect traffic lights.
@@ -125,6 +141,32 @@ class PerfectTrafficLightDetectorOperator(erdos.Operator):
             if tl.transform.location.distance(vehicle_transform.location) <=
             self._flags.static_obstacle_distance_threshold
         ]
+
+        # Log traffic lights
+        # Extract only necessary fields
+        json_traffic_lights = []
+        for traffic_light in det_traffic_lights:
+            json_traffic_lights.append(
+                {'id': traffic_light.id,
+                 'color': traffic_light.state.get_label(),
+                 'bbox': traffic_light.bounding_box_2D,
+                }
+            )
+
+        # Prepare the complete json object
+        ground_traffic_lights_json = json.dumps([obj for obj in json_traffic_lights], cls=CustomEncoder)
+        ground_traffic_lights_json = ground_traffic_lights_json.replace("\"", "")
+        ground_traffic_lights = {
+            "timestamp": "{}".format(timestamp),
+            "g_traffic_lights": ground_traffic_lights_json
+        }
+
+        # Append the json object to the json file
+        filename = "{}/ground_traffic_lights.json".format(self._flags.data_path)
+        with open(filename, "a") as file:
+            json.dump(ground_traffic_lights, file)
+            file.write(os.linesep)
+            file.close()
 
         # Send the detected traffic lights.
         traffic_lights_stream.send(
