@@ -16,6 +16,8 @@ flags.DEFINE_float('obstacle_detection_min_score_threshold', 0.5,
                    'Min score threshold for bounding box')
 flags.DEFINE_string('path_coco_labels', 'dependencies/models/pylot.names',
                     'Path to the COCO labels')
+flags.DEFINE_string('path_model_outputs', 'dependencies/models/pylot.outputs',
+                    'Path to model output dictionary keys')
 flags.DEFINE_float('dynamic_obstacle_distance_threshold', 50.0,
                    'Max distance to consider dynamic obstacles [m]')
 flags.DEFINE_float(
