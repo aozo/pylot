@@ -1,91 +1,83 @@
+"""Script for splitting datasets into traffic sign classes and traffic light classes.
+
+Setup:
+
+Install fiftyone: https://docs.voxel51.com/getting_started/install.html
+
+Example usage:
+
+    python split_dataset.py -d <image_dir>/ -l <labels>.json
+"""
+
 import argparse
+import fiftyone as fo
 import json
 import os
+
+SIGN_CLASSES = [
+        "traffic_sign_30",
+        "traffic_sign_60",
+        "traffic_sign_90"]
+
+LIGHT_CLASSES = [
+        "traffic_light_green",
+        "traffic_light_orange",
+        "traffic_light_red"]
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description = "Splits data set into multiple data sets according to categories.")
-    parser.add_argument("--file", "-f")
+    parser.add_argument("--data", "-d")
+    parser.add_argument("--labels", "-l")
     args = parser.parse_args()
-    (file_name, _) = os.path.splitext(args.file)
 
-    f = open(file_name + ".json")
-    data = json.load(f)
+    data_path = args.data
+    labels_path = args.labels
+    (label_file_name, _) = os.path.splitext(args.labels)
+    dataset_type = fo.types.COCODetectionDataset
 
-    sign_ids = []
-    sign_img_ids = []
-    sign_cats = []
-    sign_imgs = []
-    sign_anns = []
+    signs_dataset = fo.Dataset.from_dir( \
+            dataset_type=dataset_type, \
+            data_path=data_path, \
+            labels_path=labels_path, \
+            classes=SIGN_CLASSES, \
+            name="signs_dataset")
 
-    light_ids = []
-    light_img_ids = []
-    light_cats = []
-    light_imgs = []
-    light_anns = []
+    lights_dataset = fo.Dataset.from_dir( \
+            dataset_type=dataset_type, \
+            data_path=data_path, \
+            labels_path=labels_path, \
+            classes=LIGHT_CLASSES, \
+            name="lights_dataset")
 
-    other_ids = []
-    other_img_ids = []
-    other_cats = []
-    other_imgs = []
-    other_anns = []
+    if signs_dataset.stats()["samples_count"] > 0:
+        signs_dataset.export(
+                labels_path=label_file_name + "_signs.json", \
+                dataset_type=dataset_type, \
+                classes=SIGN_CLASSES)
 
-    for c in data["categories"]:
-        if c["supercategory"] == "sign":
-            sign_cats.append(c)
-            sign_ids.append(c["id"])
-        elif c["supercategory"] == "light":
-            light_cats.append(c)
-            light_ids.append(c["id"])
-        else:
-            other_cats.append(c)
-            other_ids.append(c["id"])
+        # Reformat JSON with line breaks and indentation
+        with open(label_file_name + "_signs.json", "r+") as f:
+            data = json.load(f)
+            j = json.dumps(data, indent=4)
+            f.seek(0)
+            f.write(j)
+            f.truncate()
 
-    for a in data["annotations"]:
-        if a["category_id"] in sign_ids:
-            sign_anns.append(a)
-            sign_img_ids.append(a["image_id"])
-        elif a["category_id"] in light_ids:
-            light_anns.append(a)
-            light_img_ids.append(a["image_id"])
-        else:
-            other_anns.append(a)
-            other_img_ids.append(a["image_id"])
+        print("Num sign annotations: " + str(len(data["annotations"])))
 
-    for i in data["images"]:
-        if i["id"] in sign_img_ids:
-            sign_imgs.append(i)
-        elif i["id"] in light_img_ids:
-            light_imgs.append(i)
-        else:
-            other_imgs.append(i)
+    if lights_dataset.stats()["samples_count"] > 0:
+        lights_dataset.export(
+                labels_path=label_file_name + "_lights.json", \
+                dataset_type=dataset_type, \
+                classes=LIGHT_CLASSES)
 
-    sign_json = {}
-    sign_json["info"] = data["info"]
-    sign_json["licenses"] = data["licenses"]
-    sign_json["categories"] = sign_cats
-    sign_json["images"] = sign_imgs
-    sign_json["annotations"] = sign_anns
-    j = json.dumps(sign_json, indent=4)
-    f = open(file_name + "_signs.json", "w+")
-    f.write(j)
+        # Reformat JSON with line breaks and indentation
+        with open(label_file_name + "_lights.json", "r+") as f:
+            data = json.load(f)
+            j = json.dumps(data, indent=4)
+            f.seek(0)
+            f.write(j)
+            f.truncate()
 
-    light_json = {}
-    light_json["info"] = data["info"]
-    light_json["licenses"] = data["licenses"]
-    light_json["categories"] = light_cats
-    light_json["images"] = light_imgs
-    light_json["annotations"] = light_anns
-    j = json.dumps(light_json, indent=4)
-    f = open(file_name + "_lights.json", "w+")
-    f.write(j)
-
-    other_json = {}
-    other_json["info"] = data["info"]
-    other_json["licenses"] = data["licenses"]
-    other_json["categories"] = other_cats
-    other_json["images"] = other_imgs
-    other_json["annotations"] = other_anns
-    j = json.dumps(other_json, indent=4)
-    f = open(file_name + "_other.json", "w+")
-    f.write(j)
+        print("Num light annotations: " + str(len(data["annotations"])))
