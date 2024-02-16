@@ -9,7 +9,7 @@ import numpy as np
 import pylot.utils
 from pylot.perception.detection.obstacle import Obstacle
 from pylot.perception.detection.utils import BoundingBox2D, \
-    OBSTACLE_LABELS, load_coco_bbox_colors, load_coco_labels
+    OBSTACLE_LABELS, load_coco_bbox_colors, load_coco_labels, load_model_outputs
 from pylot.perception.messages import ObstaclesMessage
 
 import tensorflow as tf
@@ -74,6 +74,7 @@ class DetectionOperator(erdos.Operator):
         logger.debug('\n\n*********Path of the model using now: %s', model_path)
 
         self._coco_labels = load_coco_labels(self._flags.path_coco_labels)
+        self._model_outputs = load_model_outputs(self._flags.path_model_outputs)
         self._bbox_colors = load_coco_bbox_colors(self._coco_labels)
         # Unique bounding box id. Incremented for each bounding box.
         self._unique_id = 0
@@ -206,10 +207,10 @@ class DetectionOperator(erdos.Operator):
         infer = self._model.signatures['serving_default']
         result = infer(tf.convert_to_tensor(value=image_np_expanded))
 
-        boxes = result['boxes']
-        scores = result['scores']
-        classes = result['classes']
-        num_detections = result['detections']
+        boxes = result[self._model_outputs['boxes']]
+        scores = result[self._model_outputs['scores']]
+        classes = result[self._model_outputs['classes']]
+        num_detections = result[self._model_outputs['detections']]
 
         num_detections = int(num_detections[0])
         res_classes = [int(cls) for cls in classes[0][:num_detections]]
