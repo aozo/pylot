@@ -54,7 +54,7 @@ if __name__ == "__main__":
         signs_dataset.export(
                 labels_path=label_file_name + "_signs.json", \
                 dataset_type=dataset_type, \
-                classes=SIGN_CLASSES)
+                classes=["RSVD"] + SIGN_CLASSES) # Class ID 0 is reserved for COCO datasets
 
         # Reformat JSON with line breaks and indentation
         with open(label_file_name + "_signs.json", "r+") as f:
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         lights_dataset.export(
                 labels_path=label_file_name + "_lights.json", \
                 dataset_type=dataset_type, \
-                classes=LIGHT_CLASSES)
+                classes=["RSVD"] + LIGHT_CLASSES) # Class ID 0 is reserved for COCO datasets
 
         # Reformat JSON with line breaks and indentation
         with open(label_file_name + "_lights.json", "r+") as f:

@@ -389,7 +389,7 @@ def get_bounding_box_in_camera_view(bb_coordinates, image_width, image_height):
             return None
 
 
-def load_coco_labels(labels_path):
+def load_coco_labels(labels_path, is_zero_index=False):
     """Returns a map from index to label.
 
     Args:
@@ -398,7 +398,10 @@ def load_coco_labels(labels_path):
     labels_map = {}
     with open(labels_path) as labels_file:
         labels = labels_file.read().splitlines()
-        index = 1
+        if is_zero_index:
+            index = 0
+        else:
+            index = 1
         for label in labels:
             labels_map[index] = label
             index += 1

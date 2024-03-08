@@ -200,6 +200,7 @@ def spawn_ego_vehicle(world,
         if spawn_point_index == -1:
             # Pick a random spawn point.
             start_pose = random.choice(world.get_map().get_spawn_points())
+            print("[DEBUG] Spawn point index: " + str(world.get_map().get_spawn_points().index(start_pose)))
         else:
             spawn_points = world.get_map().get_spawn_points()
             assert spawn_point_index < len(spawn_points), \

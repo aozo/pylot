@@ -16,6 +16,10 @@ import tensorflow as tf
 
 import json
 import os
+from PIL import Image
+import cv2
+from pylot.perception.detection.yolo.common.data_utils import preprocess_image
+from pylot.perception.detection.yolo.yolo3.postprocess_np import yolo3_postprocess_np
 
 logger = logging.getLogger(__name__)
 
@@ -73,14 +77,21 @@ class DetectionOperator(erdos.Operator):
 
         logger.debug('\n\n*********Path of the model using now: %s', model_path)
 
-        self._coco_labels = load_coco_labels(self._flags.path_coco_labels)
+        self._model_names = self._flags.obstacle_detection_model_names
+        if 'yolo' in self._model_names:
+            self._coco_labels = load_coco_labels(self._flags.path_coco_labels, is_zero_index=True)
+        else:
+            self._coco_labels = load_coco_labels(self._flags.path_coco_labels)
         self._model_outputs = load_model_outputs(self._flags.path_model_outputs)
         self._bbox_colors = load_coco_bbox_colors(self._coco_labels)
         # Unique bounding box id. Incremented for each bounding box.
         self._unique_id = 0
 
         # Serve some junk image to load up the model.
-        self.__run_model(np.zeros((108, 192, 3), dtype='uint8'))
+        if 'yolo' in self._model_names:
+            self.__run_yolo_model(np.zeros((108, 192, 3), dtype='uint8'))
+        else:
+            self.__run_model(np.zeros((108, 192, 3), dtype='uint8'))
 
     @staticmethod
     def connect(camera_stream: erdos.ReadStream,
@@ -127,8 +138,12 @@ class DetectionOperator(erdos.Operator):
         start_time = time.time()
         # The models expect BGR images.
         assert msg.frame.encoding == 'BGR', 'Expects BGR frames'
-        num_detections, res_boxes, res_scores, res_classes = self.__run_model(
-            msg.frame.frame)
+        if 'yolo' in self._model_names:
+            num_detections, res_boxes, res_scores, res_classes = self.__run_yolo_model(
+                msg.frame.frame)
+        else:
+            num_detections, res_boxes, res_scores, res_classes = self.__run_model(
+                msg.frame.frame)
         obstacles = []
         for i in range(0, num_detections):
             if res_classes[i] in self._coco_labels:
@@ -217,3 +232,38 @@ class DetectionOperator(erdos.Operator):
         res_boxes = boxes[0][:num_detections]
         res_scores = scores[0][:num_detections]
         return num_detections, res_boxes, res_scores, res_classes
+
+    def __run_yolo_model(self, image_np):
+        model_input_shape = (416, 416)
+
+        # Convert from BGR format to RGB which YOLO expects
+        image = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
+
+        img = Image.fromarray(image)
+        image_data = preprocess_image(img, model_input_shape)
+
+        # Original image shape, in (height, width) format
+        image_shape = img.size[::-1]
+
+        infer = self._model.signatures['serving_default']
+        result = infer(tf.convert_to_tensor(value=image_data, name="serving_default_image_input:0"))
+
+        # Extract prediction arrays from each of the output tensors into a list
+        prediction = [np.array(result["predict_conv_1"]), np.array(result["predict_conv_2"]), np.array(result["predict_conv_3"])]
+        with open(self._flags.path_yolo_anchors) as f:
+            anchors = f.readline()
+        anchors = [float(x) for x in anchors.split(',')]
+        anchors = np.array(anchors).reshape(-1, 2)
+
+        boxes, classes, scores = yolo3_postprocess_np(prediction, image_shape, anchors, 3, model_input_shape, elim_grid_sense=False)
+
+        # Normalize bounding box to range [0, 1]
+        norm_boxes = []
+        (h, w) = image_shape
+        for (xmin, ymin, xmax, ymax) in boxes:
+            # Order of bounding box coordinates are switched to be consistent
+            # with what Pylot expects
+            norm_boxes.append([ymin / h, xmin / w, ymax / h, xmax / w])
+
+        # Pylot expects bounding boxes and scores to be returned as a Tensor
+        return len(norm_boxes), tf.constant(norm_boxes, dtype=tf.float32), tf.constant(scores, dtype=tf.float32), classes

@@ -216,11 +216,15 @@ class PlanningOperator(erdos.Operator):
     def get_speed_limit(self, obstacles):
         for obstacle in obstacles:
             if obstacle.is_speed_limit() and obstacle.confidence > 0.5:
+                print("[DEBUG] SPEED LIMIT DETECTED")
                 if obstacle.label == 'speed limit 30':
+                    print("[DEBUG] TARGET SPEED 8.1 m/s (30 km/h)")
                     self._flags.target_speed = 8.1
                 elif obstacle.label == 'speed limit 60':
+                    print("[DEBUG] TARGET SPEED 16.5 m/s (60 km/h)")
                     self._flags.target_speed = 16.5
                 elif obstacle.label == 'speed limit 90':
+                    print("[DEBUG] TARGET SPEED 20 m/s (70 km/h)")
                     self._flags.target_speed = 20.0
         
         return self._flags.target_speed
