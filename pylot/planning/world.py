@@ -295,6 +295,7 @@ class World(object):
         for obstacle in self.static_obstacles:
             if (obstacle.is_traffic_light()
                     and self._flags.stop_for_traffic_lights):
+                print("[DEBUG] TRAFFIC LIGHT DETECTED: " + obstacle.label)
                 valid_tl, new_speed_factor_tl = self.stop_traffic_light(
                     obstacle, wp_vector, wp_angle)
                 semaphorized_junction = semaphorized_junction or valid_tl
@@ -303,6 +304,7 @@ class World(object):
                     self._logger.debug(
                         '@{}: traffic light {} reduced speed factor to {}'.
                         format(timestamp, obstacle.id, speed_factor_tl))
+                print("[DEBUG] Current Speed Factor: " + str(speed_factor_tl) + " New Speed Factor: " + str(new_speed_factor_tl))
 
         if self._flags.stop_at_uncontrolled_junctions:
             if (self._map is not None and not semaphorized_junction

@@ -176,10 +176,21 @@ def driver():
     goal_location = pylot.utils.Location(float(FLAGS.goal_location[0]),
                                          float(FLAGS.goal_location[1]),
                                          float(FLAGS.goal_location[2]))
-    waypoints_stream = pylot.component_creator.add_planning(
-        goal_location, pose_stream, prediction_stream, obstacles_stream,
-        lane_detection_stream, open_drive_stream, global_trajectory_stream,
-        time_to_decision_loop_stream)
+
+    if FLAGS.obstacle_detection:
+        # If obstacle detection is enabled, we want the planning operator to
+        # use detected obstacles such as speed signs to control the vehicle
+        waypoints_stream = pylot.component_creator.add_planning(
+            goal_location, pose_stream, prediction_stream, obstacles_stream,
+            lane_detection_stream, open_drive_stream, global_trajectory_stream,
+            time_to_decision_loop_stream)
+    else:
+        # Otherwise, keep the default behaviour which is the planning operator
+        # uses detected traffic lights to control the vehicle
+        waypoints_stream = pylot.component_creator.add_planning(
+            goal_location, pose_stream, prediction_stream, traffic_lights_stream,
+            lane_detection_stream, open_drive_stream, global_trajectory_stream,
+            time_to_decision_loop_stream)
 
     if FLAGS.simulator_mode == "pseudo-asynchronous":
         # Add a synchronizer in the pseudo-asynchronous mode.
