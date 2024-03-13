@@ -228,4 +228,5 @@ class TrafficLightDetOperator(erdos.Operator):
                                  id=self._unique_id,
                                  bounding_box=bbox))
                 self._unique_id += 1
+                print("[DEBUG] TRAFFIC LIGHT DETECTED (%f): %s" % (scores[index], labels[index]))
         return traffic_lights

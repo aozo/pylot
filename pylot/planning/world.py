@@ -295,7 +295,6 @@ class World(object):
         for obstacle in self.static_obstacles:
             if (obstacle.is_traffic_light()
                     and self._flags.stop_for_traffic_lights):
-                print("[DEBUG] TRAFFIC LIGHT DETECTED: " + obstacle.label)
                 valid_tl, new_speed_factor_tl = self.stop_traffic_light(
                     obstacle, wp_vector, wp_angle)
                 semaphorized_junction = semaphorized_junction or valid_tl
