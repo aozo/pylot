@@ -34,8 +34,8 @@ def main():
         # Config each subplot
         df.plot(x='timestamp', y='speed', ax=axes[0][0], ylabel='km/h', ylim=(0, 90))
         df.plot(x='timestamp', y='steer', ax=axes[0][1], ylabel='rad', ylim=(-0.5, 0.5))
-        df.plot(x='timestamp', y='throttle', ax=axes[1][0], ylim=(0, 1))
-        df.plot(x='timestamp', y='brake', ax=axes[1][1], ylim=(0, 1))
+        df.plot(x='timestamp', y='throttle', ax=axes[1][0], ylim=(-0.1, 1.1))
+        df.plot(x='timestamp', y='brake', ax=axes[1][1], ylim=(-0.1, 1.1))
 
         # Save the plot back to the path of the control json file
         result_path = os.path.split(args.file_path)[0]
