@@ -275,6 +275,7 @@ class World(object):
         for obstacle in self.obstacle_predictions:
             if obstacle.is_person() and self._flags.stop_for_people:
                 new_speed_factor_p = self.stop_person(obstacle, wp_vector)
+                print("[DEBUG] Person: Speed Factor: " + str(new_speed_factor_p))
                 if new_speed_factor_p < speed_factor_p:
                     speed_factor_p = new_speed_factor_p
                     self._logger.debug(
@@ -282,6 +283,7 @@ class World(object):
                             timestamp, obstacle.id, speed_factor_p))
             elif obstacle.is_vehicle() and self._flags.stop_for_vehicles:
                 new_speed_factor_v = self.stop_vehicle(obstacle, wp_vector)
+                print("[DEBUG] Vehicle: Speed Factor: " + str(new_speed_factor_v))
                 if new_speed_factor_v < speed_factor_v:
                     speed_factor_v = new_speed_factor_v
                     self._logger.debug(
@@ -298,12 +300,12 @@ class World(object):
                 valid_tl, new_speed_factor_tl = self.stop_traffic_light(
                     obstacle, wp_vector, wp_angle)
                 semaphorized_junction = semaphorized_junction or valid_tl
+                print("[DEBUG] Traffic Light: Speed Factor: " + str(new_speed_factor_tl))
                 if new_speed_factor_tl < speed_factor_tl:
                     speed_factor_tl = new_speed_factor_tl
                     self._logger.debug(
                         '@{}: traffic light {} reduced speed factor to {}'.
                         format(timestamp, obstacle.id, speed_factor_tl))
-                print("[DEBUG] Current Speed Factor: " + str(speed_factor_tl) + " New Speed Factor: " + str(new_speed_factor_tl))
 
         if self._flags.stop_at_uncontrolled_junctions:
             if (self._map is not None and not semaphorized_junction

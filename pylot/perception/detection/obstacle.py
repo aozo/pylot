@@ -4,7 +4,7 @@ import pylot.utils
 from pylot.perception.detection.utils import BoundingBox2D, BoundingBox3D, \
     get_bounding_box_in_camera_view
 
-VEHICLE_LABELS = {'car', 'bicycle', 'motorcycle', 'bus', 'truck', 'vehicle'}
+VEHICLE_LABELS = {'car', 'bicycle', 'bike', 'motobike', 'motorcycle', 'bus', 'truck', 'vehicle'}
 
 
 class Obstacle(object):
