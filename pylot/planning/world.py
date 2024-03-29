@@ -303,6 +303,7 @@ class World(object):
                     self._logger.debug(
                         '@{}: traffic light {} reduced speed factor to {}'.
                         format(timestamp, obstacle.id, speed_factor_tl))
+                print("[DEBUG] Current Speed Factor: " + str(speed_factor_tl) + " New Speed Factor: " + str(new_speed_factor_tl))
 
         if self._flags.stop_at_uncontrolled_junctions:
             if (self._map is not None and not semaphorized_junction
@@ -424,20 +425,26 @@ class World(object):
                     # straight; the angle to the traffic light can be higher.
                     speed_factor_tl = 0
         if speed_factor_tl < 1:
-            dist_to_intersection = self._map.distance_to_intersection(
-                self.ego_transform.location, max_distance_to_check=20)
-            if dist_to_intersection is None:
-                # Our lidar-based depth estimation does not work when
-                # we're on a hill.
-                # XXX(ionel): Hack to avoid getting stuck when we're far
-                # from intersections (see scenario 28 in the challenge training
-                # routes).
-                self._logger.warning(
-                    'Ignored traffic light speed factor because junction '
-                    'is not nearby')
-                return True, 1
-            else:
-                return True, speed_factor_tl
+            #
+            # Comment this out so that the vehicle will adjust speed more
+            # consistently upon detection of a traffic light
+            #
+            # dist_to_intersection = self._map.distance_to_intersection(
+            #     self.ego_transform.location, max_distance_to_check=20)
+            # if dist_to_intersection is None:
+            #     # Our lidar-based depth estimation does not work when
+            #     # we're on a hill.
+            #     # XXX(ionel): Hack to avoid getting stuck when we're far
+            #     # from intersections (see scenario 28 in the challenge training
+            #     # routes).
+            #     self._logger.warning(
+            #         'Ignored traffic light speed factor because junction '
+            #         'is not nearby')
+            #     return True, 1
+            # else:
+            #     return True, speed_factor_tl
+
+            return True, speed_factor_tl
         else:
             # The traffic light doesn't affect the vehicle.
             return False, speed_factor_tl

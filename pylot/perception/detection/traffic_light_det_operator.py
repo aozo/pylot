@@ -13,6 +13,12 @@ from pylot.perception.messages import TrafficLightsMessage
 
 import tensorflow as tf
 
+from PIL import Image
+import cv2
+from pylot.perception.detection.yolo.common.data_utils import preprocess_image
+from pylot.perception.detection.yolo.yolo3.postprocess_np import yolo3_postprocess_np
+
+logger = logging.getLogger(__name__)
 
 class TrafficLightDetOperator(erdos.Operator):
     """Detects traffic lights using a TensorFlow model.
@@ -53,16 +59,31 @@ class TrafficLightDetOperator(erdos.Operator):
         self._model = tf.saved_model.load(
             self._flags.traffic_light_det_model_path)
 
-        self._labels = {
-            1: TrafficLightColor.GREEN,
-            2: TrafficLightColor.YELLOW,
-            3: TrafficLightColor.RED,
-            4: TrafficLightColor.OFF
-        }
+        logger.debug('\n\n*********Path of the model using now: %s', self._flags.traffic_light_det_model_path)
+        self._model_names = self._flags.obstacle_detection_model_names
+
+        if 'yolo' in self._model_names:
+            # These labels map to the class output from the YOLO detector
+            self._labels = {
+                0: TrafficLightColor.GREEN,
+                1: TrafficLightColor.YELLOW,
+                2: TrafficLightColor.RED,
+            }
+        else:
+            self._labels = {
+                1: TrafficLightColor.GREEN,
+                2: TrafficLightColor.YELLOW,
+                3: TrafficLightColor.RED,
+                4: TrafficLightColor.OFF
+            }
+
         # Unique bounding box id. Incremented for each bounding box.
         self._unique_id = 0
         # Serve some junk image to load up the model.
-        self.__run_model(np.zeros((108, 192, 3), dtype='uint8'))
+        if 'yolo' in self._model_names:
+            self.__run_yolo_model(np.zeros((108, 192, 3), dtype='uint8'))
+        else:
+            self.__run_model(np.zeros((108, 192, 3), dtype='uint8'))
 
     @staticmethod
     def connect(camera_stream: erdos.ReadStream,
@@ -105,8 +126,12 @@ class TrafficLightDetOperator(erdos.Operator):
         self._logger.debug('@{}: {} received message'.format(
             msg.timestamp, self.config.name))
         assert msg.frame.encoding == 'BGR', 'Expects BGR frames'
-        boxes, scores, labels = self.__run_model(
-            msg.frame.as_rgb_numpy_array())
+        if 'yolo' in self._model_names:
+            boxes, scores, labels = self.__run_yolo_model(
+                msg.frame.as_rgb_numpy_array())
+        else:
+            boxes, scores, labels = self.__run_model(
+                msg.frame.as_rgb_numpy_array())
 
         traffic_lights = self.__convert_to_detected_tl(
             boxes, scores, labels, msg.frame.camera_setup.height,
@@ -146,6 +171,46 @@ class TrafficLightDetOperator(erdos.Operator):
         res_scores = scores[0][:num_detections]
         return res_boxes, res_scores, res_labels
 
+    def __run_yolo_model(self, image_np):
+        model_input_shape = (416, 416)
+
+        # Convert from BGR format to RGB which YOLO expects
+        image = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
+
+        img = Image.fromarray(image)
+        image_data = preprocess_image(img, model_input_shape)
+
+        # Original image shape, in (height, width) format
+        image_shape = img.size[::-1]
+
+        infer = self._model.signatures['serving_default']
+        result = infer(tf.convert_to_tensor(value=image_data, name="serving_default_image_input:0"))
+
+        # Extract prediction arrays from each of the output tensors into a list
+        prediction = [np.array(result["predict_conv_1"]), np.array(result["predict_conv_2"]), np.array(result["predict_conv_3"])]
+        with open(self._flags.path_yolo_anchors) as f:
+            anchors = f.readline()
+        anchors = [float(x) for x in anchors.split(',')]
+        anchors = np.array(anchors).reshape(-1, 2)
+
+        boxes, classes, scores = yolo3_postprocess_np(prediction, image_shape, anchors, 3, model_input_shape, elim_grid_sense=False)
+
+        # Normalize bounding box to range [0, 1]
+        norm_boxes = []
+        (h, w) = image_shape
+        for (xmin, ymin, xmax, ymax) in boxes:
+            # Order of bounding box coordinates are switched to be consistent
+            # with what Pylot expects
+            norm_boxes.append([ymin / h, xmin / w, ymax / h, xmax / w])
+
+        num_detections = len(classes)
+        res_labels = [
+            self._labels[int(label)] for label in classes[:]
+        ]
+
+        # Pylot expects bounding boxes and scores to be returned as a Tensor
+        return tf.constant(norm_boxes, dtype=tf.float32), tf.constant(scores, dtype=tf.float32), res_labels
+
     def __convert_to_detected_tl(self, boxes, scores, labels, height, width):
         traffic_lights = []
         for index in range(len(scores)):
@@ -163,4 +228,5 @@ class TrafficLightDetOperator(erdos.Operator):
                                  id=self._unique_id,
                                  bounding_box=bbox))
                 self._unique_id += 1
+                print("[DEBUG] TRAFFIC LIGHT DETECTED (%f): %s" % (scores[index], labels[index]))
         return traffic_lights
