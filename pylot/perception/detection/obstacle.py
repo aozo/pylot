@@ -145,6 +145,7 @@ class Obstacle(object):
             if ego_transform is not None and self.transform is not None:
                 text += ', {:.1f}m'.format(
                     ego_transform.location.distance(self.transform.location))
+        print(text)
         if self.label in bbox_color_map:
             color = bbox_color_map[self.label]
         else:

@@ -9,7 +9,7 @@ import numpy as np
 import pylot.utils
 from pylot.perception.detection.obstacle import Obstacle
 from pylot.perception.detection.utils import BoundingBox2D, \
-    OBSTACLE_LABELS, load_coco_bbox_colors, load_coco_labels, load_model_outputs
+    OBSTACLE_LABELS, load_coco_bbox_colors, load_coco_labels
 from pylot.perception.messages import ObstaclesMessage
 
 import tensorflow as tf
@@ -21,6 +21,7 @@ import cv2
 from pylot.perception.detection.yolo.common.data_utils import preprocess_image
 from pylot.perception.detection.yolo.yolo3.postprocess_np import yolo3_postprocess_np
 from pylot.perception.detection.yolo.yolo5.postprocess_np import yolo5_postprocess_np
+from pylot.perception.detection.ensemble import calculate_ensemble
 
 logger = logging.getLogger(__name__)
 
@@ -73,26 +74,55 @@ class DetectionOperator(erdos.Operator):
         tf.config.experimental.set_memory_growth(
             physical_devices[self._flags.obstacle_detection_gpu_index], True)
 
+        # Multiple models may be loaded as a part of an ensemble, so it's stored in a list
+        self._model = []
+
         # Load the model from the saved_model format file.
-        self._model = tf.saved_model.load(model_path)
+        self._model.append(tf.saved_model.load(model_path))
 
-        logger.debug('\n\n*********Path of the model using now: %s', model_path)
+        print("[DEBUG] Detection model 1: %s" % (model_path))
 
-        self._model_names = self._flags.obstacle_detection_model_names
-        if 'yolo' in self._model_names[0]:
+        if self._flags.obstacle_detection_model_paths_2:
+            self._model.append(tf.saved_model.load(self._flags.obstacle_detection_model_paths_2))
+            print("[DEBUG] Detection model 2: %s" % (self._flags.obstacle_detection_model_paths_2))
+
+        if self._flags.obstacle_detection_model_paths_3:
+            self._model.append(tf.saved_model.load(self._flags.obstacle_detection_model_paths_3))
+            print("[DEBUG] Detection model 3: %s" % (self._flags.obstacle_detection_model_paths_3))
+
+        self._model_names = []
+        self._model_names.append(self._flags.obstacle_detection_model_names)
+
+        if self._flags.obstacle_detection_model_names_2:
+            self._model_names.append(self._flags.obstacle_detection_model_names_2)
+
+        if self._flags.obstacle_detection_model_names_3:
+            self._model_names.append(self._flags.obstacle_detection_model_names_3)
+
+        self.path_yolo_anchors = []
+        self.path_yolo_anchors.append(self._flags.path_yolo_anchors)
+
+        if self._flags.path_yolo_anchors_2:
+            self.path_yolo_anchors.append(self._flags.path_yolo_anchors_2)
+
+        if self._flags.path_yolo_anchors_3:
+            self.path_yolo_anchors.append(self._flags.path_yolo_anchors_3)
+
+        # Assume that class names are the same for all models if used as part of an ensemble
+        if 'yolo' in self._model_names[0][0]:
             self._coco_labels = load_coco_labels(self._flags.path_coco_labels, is_zero_index=True)
         else:
             self._coco_labels = load_coco_labels(self._flags.path_coco_labels)
-        self._model_outputs = load_model_outputs(self._flags.path_model_outputs)
         self._bbox_colors = load_coco_bbox_colors(self._coco_labels)
         # Unique bounding box id. Incremented for each bounding box.
         self._unique_id = 0
 
-        # Serve some junk image to load up the model.
-        if 'yolo' in self._model_names[0]:
-            self.__run_yolo_model(np.zeros((108, 192, 3), dtype='uint8'))
-        else:
-            self.__run_model(np.zeros((108, 192, 3), dtype='uint8'))
+        for idx, _ in enumerate(self._model):
+            # Serve some junk image to load up the model.
+            if 'yolo' in self._model_names[idx][0]:
+                self.__run_yolo_model(np.zeros((108, 192, 3), dtype='uint8'), idx)
+            else:
+                self.__run_model(np.zeros((108, 192, 3), dtype='uint8'), idx)
 
     @staticmethod
     def connect(camera_stream: erdos.ReadStream,
@@ -139,12 +169,35 @@ class DetectionOperator(erdos.Operator):
         start_time = time.time()
         # The models expect BGR images.
         assert msg.frame.encoding == 'BGR', 'Expects BGR frames'
-        if 'yolo' in self._model_names[0]:
-            num_detections, res_boxes, res_scores, res_classes = self.__run_yolo_model(
-                msg.frame.frame)
-        else:
-            num_detections, res_boxes, res_scores, res_classes = self.__run_model(
-                msg.frame.frame)
+        model_detections = {}
+        for idx, _ in enumerate(self._model):
+            model_detections[idx] = []
+            if 'yolo' in self._model_names[idx][0]:
+                num_detections, res_boxes, res_scores, res_classes = self.__run_yolo_model(
+                    msg.frame.frame, idx)
+            else:
+                num_detections, res_boxes, res_scores, res_classes = self.__run_model(
+                    msg.frame.frame, idx)
+
+            for i in range(num_detections):
+                # Convert tensors to native python types
+                py_bboxes = res_boxes.numpy().tolist()
+                py_scores = res_scores.numpy().tolist()
+                model_detections[idx].append((py_bboxes[i], py_scores[i], res_classes[i]))
+                print("[DEBUG] Model %d: Detected %s (%f)" % (idx, self._coco_labels[res_classes[i]], res_scores[i]))
+
+        # If 3 models, then enable ensemble
+        if len(model_detections) == 3:
+            num_detections, py_bboxes, py_scores, res_classes = calculate_ensemble(
+                    model_detections[0],
+                    model_detections[1],
+                    model_detections[2],
+                    msg.frame.camera_setup.width,
+                    msg.frame.camera_setup.height)
+            # Convert back to tensors
+            res_boxes = tf.constant(py_bboxes, dtype=tf.float32)
+            res_scores = tf.constant(py_scores, dtype=tf.float32)
+
         obstacles = []
         for i in range(0, num_detections):
             if res_classes[i] in self._coco_labels:
@@ -215,18 +268,24 @@ class DetectionOperator(erdos.Operator):
             msg.frame.save(msg.timestamp.coordinates[0], self._flags.data_path,
                            'detector-{}'.format(self.config.name))
 
-    def __run_model(self, image_np):
+    def __run_model(self, image_np, model_idx):
         # Expand dimensions since the model expects images to have
         # shape: [1, None, None, 3]
         image_np_expanded = np.expand_dims(image_np, axis=0)
 
-        infer = self._model.signatures['serving_default']
+        infer = self._model[model_idx].signatures['serving_default']
         result = infer(tf.convert_to_tensor(value=image_np_expanded))
 
-        boxes = result[self._model_outputs['boxes']]
-        scores = result[self._model_outputs['scores']]
-        classes = result[self._model_outputs['classes']]
-        num_detections = result[self._model_outputs['detections']]
+        if self._flags.tf_model_zoo:
+            boxes = result['detection_boxes']
+            scores = result['detection_scores']
+            classes = result['detection_classes']
+            num_detections = result['num_detections']
+        else:
+            boxes = result['boxes']
+            scores = result['scores']
+            classes = result['classes']
+            num_detections = result['detections']
 
         num_detections = int(num_detections[0])
         res_classes = [int(cls) for cls in classes[0][:num_detections]]
@@ -234,7 +293,7 @@ class DetectionOperator(erdos.Operator):
         res_scores = scores[0][:num_detections]
         return num_detections, res_boxes, res_scores, res_classes
 
-    def __run_yolo_model(self, image_np):
+    def __run_yolo_model(self, image_np, model_idx):
         model_input_shape = (416, 416)
 
         # Convert from BGR format to RGB which YOLO expects
@@ -246,19 +305,19 @@ class DetectionOperator(erdos.Operator):
         # Original image shape, in (height, width) format
         image_shape = img.size[::-1]
 
-        infer = self._model.signatures['serving_default']
+        infer = self._model[model_idx].signatures['serving_default']
         result = infer(tf.convert_to_tensor(value=image_data, name="serving_default_image_input:0"))
 
         # Extract prediction arrays from each of the output tensors into a list
         prediction = [np.array(result["predict_conv_1"]), np.array(result["predict_conv_2"]), np.array(result["predict_conv_3"])]
-        with open(self._flags.path_yolo_anchors) as f:
+        with open(self.path_yolo_anchors[model_idx]) as f:
             anchors = f.readline()
         anchors = [float(x) for x in anchors.split(',')]
         anchors = np.array(anchors).reshape(-1, 2)
 
         num_classes = len(self._coco_labels)
 
-        if self._model_names[0] == 'yolo3':
+        if self._model_names[model_idx][0] == 'yolo3':
             boxes, classes, scores = yolo3_postprocess_np(prediction, image_shape, anchors, num_classes, model_input_shape, elim_grid_sense=False)
         else:
             boxes, classes, scores = yolo5_postprocess_np(prediction, image_shape, anchors, num_classes, model_input_shape, elim_grid_sense=True)
