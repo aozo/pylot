@@ -20,6 +20,7 @@ from PIL import Image
 import cv2
 from pylot.perception.detection.yolo.common.data_utils import preprocess_image
 from pylot.perception.detection.yolo.yolo3.postprocess_np import yolo3_postprocess_np
+from pylot.perception.detection.yolo.yolo5.postprocess_np import yolo5_postprocess_np
 
 logger = logging.getLogger(__name__)
 
@@ -78,7 +79,7 @@ class DetectionOperator(erdos.Operator):
         logger.debug('\n\n*********Path of the model using now: %s', model_path)
 
         self._model_names = self._flags.obstacle_detection_model_names
-        if 'yolo' in self._model_names:
+        if 'yolo' in self._model_names[0]:
             self._coco_labels = load_coco_labels(self._flags.path_coco_labels, is_zero_index=True)
         else:
             self._coco_labels = load_coco_labels(self._flags.path_coco_labels)
@@ -88,7 +89,7 @@ class DetectionOperator(erdos.Operator):
         self._unique_id = 0
 
         # Serve some junk image to load up the model.
-        if 'yolo' in self._model_names:
+        if 'yolo' in self._model_names[0]:
             self.__run_yolo_model(np.zeros((108, 192, 3), dtype='uint8'))
         else:
             self.__run_model(np.zeros((108, 192, 3), dtype='uint8'))
@@ -138,7 +139,7 @@ class DetectionOperator(erdos.Operator):
         start_time = time.time()
         # The models expect BGR images.
         assert msg.frame.encoding == 'BGR', 'Expects BGR frames'
-        if 'yolo' in self._model_names:
+        if 'yolo' in self._model_names[0]:
             num_detections, res_boxes, res_scores, res_classes = self.__run_yolo_model(
                 msg.frame.frame)
         else:
@@ -256,7 +257,11 @@ class DetectionOperator(erdos.Operator):
         anchors = np.array(anchors).reshape(-1, 2)
 
         num_classes = len(self._coco_labels)
-        boxes, classes, scores = yolo3_postprocess_np(prediction, image_shape, anchors, num_classes, model_input_shape, elim_grid_sense=False)
+
+        if self._model_names[0] == 'yolo3':
+            boxes, classes, scores = yolo3_postprocess_np(prediction, image_shape, anchors, num_classes, model_input_shape, elim_grid_sense=False)
+        else:
+            boxes, classes, scores = yolo5_postprocess_np(prediction, image_shape, anchors, num_classes, model_input_shape, elim_grid_sense=True)
 
         # Normalize bounding box to range [0, 1]
         norm_boxes = []
