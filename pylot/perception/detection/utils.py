@@ -5,7 +5,7 @@ import numpy as np
 import pylot.utils
 
 OBSTACLE_LABELS = {
-    'car', 'bicycle', 'motorcycle', 'bus', 'truck', 'vehicle', 'person',
+    'car', 'bicycle', 'bike', 'motobike', 'motorcycle', 'bus', 'truck', 'vehicle', 'person',
     'stop sign', 'parking meter', 'cat', 'dog', 'speed limit 30',
     'speed limit 60', 'speed limit 90'
 }
@@ -15,6 +15,8 @@ PYLOT_BBOX_COLOR_MAP = {
     'vehicle': [128, 0, 0],
     'car': [128, 0, 0],
     'bicycle': [128, 0, 0],
+    'bike': [128, 0, 0],
+    'motobike': [128, 0, 0],
     'motorcycle': [128, 0, 0],
     'bus': [128, 0, 0],
     'truck': [128, 0, 0],

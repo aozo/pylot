@@ -255,7 +255,8 @@ class DetectionOperator(erdos.Operator):
         anchors = [float(x) for x in anchors.split(',')]
         anchors = np.array(anchors).reshape(-1, 2)
 
-        boxes, classes, scores = yolo3_postprocess_np(prediction, image_shape, anchors, 3, model_input_shape, elim_grid_sense=False)
+        num_classes = len(self._coco_labels)
+        boxes, classes, scores = yolo3_postprocess_np(prediction, image_shape, anchors, num_classes, model_input_shape, elim_grid_sense=False)
 
         # Normalize bounding box to range [0, 1]
         norm_boxes = []

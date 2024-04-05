@@ -45,7 +45,10 @@ class CarlaOperator(erdos.Operator):
             vehicle_id_stream: WriteStream, open_drive_stream: WriteStream,
             global_trajectory_stream: WriteStream, flags):
         if flags.random_seed:
-            random.seed(flags.random_seed)
+            seed = flags.random_seed
+        else:
+            seed = random.randint(0, 1000000000)
+        random.seed(seed)
         # Register callback on control stream.
         control_stream.add_callback(self.on_control_msg)
         erdos.add_watermark_callback([release_sensor_stream], [],
@@ -66,6 +69,7 @@ class CarlaOperator(erdos.Operator):
         self._flags = flags
         self._logger = erdos.utils.setup_logging(self.config.name,
                                                  self.config.log_file_name)
+        self._logger.debug('Random seed: {}'.format(seed))
         self._csv_logger = erdos.utils.setup_csv_logging(
             self.config.name + '-csv', self.config.csv_log_file_name)
         # Connect to simulator and retrieve the world running.
