@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>P-R curve for motobike</title>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div class="bk-root" id="5f566b26-c10f-43fb-9769-36f9854c645a" data-root-id="1163"></div>
+  
+    <script type="application/json" id="1321">
+      {"152b717e-fb2b-4622-bd95-c6f915462048":{"defs":[],"roots":{"references":[{"attributes":{},"id":"1166","type":"DataRange1d"},{"attributes":{"coordinates":null,"data_source":{"id":"1162"},"glyph":{"id":"1184"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1186"},"nonselection_glyph":{"id":"1185"},"view":{"id":"1188"}},"id":"1187","type":"GlyphRenderer"},{"attributes":{},"id":"1197","type":"Selection"},{"attributes":{"tools":[{"id":"1201"}]},"id":"1182","type":"Toolbar"},{"attributes":{"callback":{"id":"1200"},"formatters":{"prec":"printf","rec":"printf"},"mode":"vline","tooltips":[["score","@score{0.0000 a}"],["Prec","@prec"],["Recall","@rec"]]},"id":"1201","type":"HoverTool"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1199"}]},"id":"1198","type":"Legend"},{"attributes":{},"id":"1172","type":"LinearScale"},{"attributes":{"code":"var data=cb_data.renderer.data_source.data;\n         var line_id=cb_data.index.line_indices[0];\n         var x=cb_data.geometry.x;\n         if(data['rec'][line_id+1]-x &gt; x-data['rec'][line_id])\n         {\n            window.spr_text=data['score'][line_id]+'\t'+data['prec'][line_id]+'\t'+data['rec'][line_id];\n         }\n         else\n         {\n            window.spr_text=data['score'][line_id+1]+'\t'+data['prec'][line_id+1]+'\t'+data['rec'][line_id+1];\n         }\n         "},"id":"1200","type":"CustomJS"},{"attributes":{"line_alpha":0.2,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1186","type":"Line"},{"attributes":{"axis_label":"Precision","axis_line_color":null,"coordinates":null,"formatter":{"id":"1191"},"group":null,"major_label_policy":{"id":"1192"},"ticker":{"id":"1179"}},"id":"1178","type":"LinearAxis"},{"attributes":{},"id":"1195","type":"AllLabels"},{"attributes":{"background_fill_color":"#f5f5f5","below":[{"id":"1174"}],"center":[{"id":"1177"},{"id":"1181"},{"id":"1198"}],"height":200,"js_event_callbacks":{"doubletap":[{"id":"1203"}]},"left":[{"id":"1178"}],"renderers":[{"id":"1187"}],"sizing_mode":"scale_width","title":{"id":"1164"},"toolbar":{"id":"1182"},"toolbar_location":null,"width":200,"x_range":{"id":"1166"},"x_scale":{"id":"1170"},"y_range":{"id":"1168"},"y_scale":{"id":"1172"}},"id":"1163","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1168","type":"DataRange1d"},{"attributes":{"axis":{"id":"1174"},"coordinates":null,"grid_line_color":"white","group":null,"ticker":null},"id":"1177","type":"Grid"},{"attributes":{"axis":{"id":"1178"},"coordinates":null,"dimension":1,"grid_line_color":"white","group":null,"ticker":null},"id":"1181","type":"Grid"},{"attributes":{},"id":"1196","type":"UnionRenderers"},{"attributes":{"data":{"prec":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.9166666666666666,0.9166666666666666,0.8666666666666667,0.8666666666666667,0.8666666666666667,0.8125,0.7777777777777778,0.7777777777777778,0.7368421052631579,0.7,0.6956521739130435,0.6956521739130435,0.6956521739130435,0.6666666666666666,0.64,0.6153846153846154,0.6071428571428571,0.6071428571428571,0.5862068965517241,0.5806451612903226,0.5806451612903226,0.5757575757575758,0.5757575757575758,0.5588235294117647,0.5555555555555556,0.5555555555555556,0.5405405405405406,0.5263157894736842,0.5128205128205128,0.5,0.4878048780487805,0.47619047619047616,0.46511627906976744,0.45652173913043476,0.45652173913043476,0.45652173913043476,0.44680851063829785,0.4375,0.42857142857142855,0.42,0.4117647058823529,0.40384615384615385,0.39622641509433965,0.3888888888888889,0.38181818181818183,0.375,0.3684210526315789,0.3620689655172414,0.3559322033898305,0.35,0.3442622950819672,0.3387096774193548,0.3333333333333333,0.328125,0.3230769230769231,0.3181818181818182,0.0,0.0],"rec":[0.0,0.03571428571428571,0.07142857142857142,0.10714285714285714,0.14285714285714285,0.17857142857142858,0.21428571428571427,0.25,0.2857142857142857,0.32142857142857145,0.35714285714285715,0.35714285714285715,0.39285714285714285,0.39285714285714285,0.42857142857142855,0.4642857142857143,0.4642857142857143,0.4642857142857143,0.5,0.5,0.5,0.5,0.5357142857142857,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.6071428571428571,0.6071428571428571,0.6071428571428571,0.6428571428571429,0.6428571428571429,0.6785714285714286,0.6785714285714286,0.6785714285714286,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,1.0],"score":[0.0,0.7854637923378682,0.7776342734352149,0.7637324381559552,0.7613205651034463,0.7574876335111647,0.7450009956985042,0.6814695717394237,0.6056151810128654,0.4804087989501795,0.42852394541036176,0.39151001592173174,0.36107064801750965,0.3466968806217867,0.3297378160162765,0.32834916954178084,0.30085752686153455,0.28238099051134924,0.2765782885919492,0.2740007342868278,0.249410534249904,0.21280813930747655,0.1772459813113869,0.15162970424918143,0.1488999537631246,0.13338535942642693,0.11381359646992806,0.10800633561783712,0.10108190270224782,0.09506646969944654,0.08953530403146903,0.08111977425419781,0.06842924309828646,0.048870067382793536,0.04603833703103355,0.031507883106996815,0.029762352638135203,0.028771264319337853,0.02487328600898253,0.018200480917282325,0.01630258152009323,0.015957454230649648,0.015472549499842003,0.010465201865350549,0.01030660451763199,0.009575442035379411,0.009266174209466294,0.005092049781829644,0.004711464031940116,0.004692142646479103,0.004577400728877412,0.004417243769885837,0.002649234866298922,0.0022979451407948576,0.002272660358983769,0.001680387833038699,0.0014541223125017072,0.0013524208899098888,0.0013019985757286856,0.001237627822946126,0.0012130163504488894,0.0012084411488201552,0.001109158811111205,0.001095387311396391,0.0010900754506992794,0.0010051347932546056,0.0,0.0010017060455601648,1.0]},"selected":{"id":"1197"},"selection_policy":{"id":"1196"}},"id":"1162","type":"ColumnDataSource"},{"attributes":{},"id":"1192","type":"AllLabels"},{"attributes":{"line_alpha":0.1,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1185","type":"Line"},{"attributes":{},"id":"1191","type":"BasicTickFormatter"},{"attributes":{},"id":"1175","type":"BasicTicker"},{"attributes":{},"id":"1194","type":"BasicTickFormatter"},{"attributes":{"coordinates":null,"group":null,"text":"class: motobike AP = 62.83823219457361%"},"id":"1164","type":"Title"},{"attributes":{"label":{"value":"double click to copy P&amp;R"},"renderers":[{"id":"1187"}]},"id":"1199","type":"LegendItem"},{"attributes":{},"id":"1170","type":"LinearScale"},{"attributes":{"axis_label":"Recall","axis_line_color":null,"coordinates":null,"formatter":{"id":"1194"},"group":null,"major_label_policy":{"id":"1195"},"ticker":{"id":"1175"}},"id":"1174","type":"LinearAxis"},{"attributes":{"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1184","type":"Line"},{"attributes":{"source":{"id":"1162"}},"id":"1188","type":"CDSView"},{"attributes":{"code":"navigator.clipboard.writeText(window.spr_text);"},"id":"1203","type":"CustomJS"},{"attributes":{},"id":"1179","type":"BasicTicker"}],"root_ids":["1163"]},"title":"Bokeh Application","version":"2.4.3"}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('1321').textContent;
+              const render_items = [{"docid":"152b717e-fb2b-4622-bd95-c6f915462048","root_ids":["1163"],"roots":{"1163":"5f566b26-c10f-43fb-9769-36f9854c645a"}}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

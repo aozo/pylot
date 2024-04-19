@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>P-R curve for person</title>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div class="bk-root" id="f5a27f01-bdfb-4645-bd74-2cbebc2f196e" data-root-id="1323"></div>
+  
+    <script type="application/json" id="1481">
+      {"adf56413-ca1f-4b4d-9298-76abd895c99c":{"defs":[],"roots":{"references":[{"attributes":{},"id":"1355","type":"AllLabels"},{"attributes":{"tools":[{"id":"1361"}]},"id":"1342","type":"Toolbar"},{"attributes":{"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1344","type":"Line"},{"attributes":{"code":"var data=cb_data.renderer.data_source.data;\n         var line_id=cb_data.index.line_indices[0];\n         var x=cb_data.geometry.x;\n         if(data['rec'][line_id+1]-x &gt; x-data['rec'][line_id])\n         {\n            window.spr_text=data['score'][line_id]+'\t'+data['prec'][line_id]+'\t'+data['rec'][line_id];\n         }\n         else\n         {\n            window.spr_text=data['score'][line_id+1]+'\t'+data['prec'][line_id+1]+'\t'+data['rec'][line_id+1];\n         }\n         "},"id":"1360","type":"CustomJS"},{"attributes":{"axis_label":"Precision","axis_line_color":null,"coordinates":null,"formatter":{"id":"1351"},"group":null,"major_label_policy":{"id":"1352"},"ticker":{"id":"1339"}},"id":"1338","type":"LinearAxis"},{"attributes":{"data":{"prec":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.9615384615384616,0.9259259259259259,0.8928571428571429,0.8620689655172413,0.8333333333333334,0.8064516129032258,0.78125,0.7575757575757576,0.7352941176470589,0.7142857142857143,0.6944444444444444,0.6756756756756757,0.6578947368421053,0.6410256410256411,0.625,0.6097560975609756,0.5952380952380952,0.5813953488372093,0.5681818181818182,0.5555555555555556,0.5434782608695652,0.5319148936170213,0.5208333333333334,0.5102040816326531,0.5,0.49019607843137253,0.4807692307692308,0.4716981132075472,0.46296296296296297,0.45454545454545453,0.44642857142857145,0.43859649122807015,0.43103448275862066,0.423728813559322,0.4166666666666667,0.4098360655737705,0.4032258064516129,0.3968253968253968,0.390625,0.38461538461538464,0.3787878787878788,0.373134328358209,0.36764705882352944,0.36231884057971014,0.35714285714285715,0.352112676056338,0.3472222222222222,0.3424657534246575,0.33783783783783783,0.3333333333333333,0.32894736842105265,0.3246753246753247,0.32051282051282054,0.31645569620253167,0.3125,0.30864197530864196,0.3048780487804878,0.30120481927710846,0.2976190476190476,0.29411764705882354,0.29069767441860467,0.28735632183908044,0.2840909090909091,0.2808988764044944,0.2777777777777778,0.27472527472527475,0.2717391304347826,0.26881720430107525,0.26595744680851063,0.2631578947368421,0.2604166666666667,0.25773195876288657,0.25510204081632654,0.25252525252525254,0.25,0.24752475247524752,0.24509803921568626,0.24271844660194175,0.2403846153846154,0.23809523809523808,0.0,0.0],"rec":[0.0,0.04,0.08,0.12,0.16,0.2,0.24,0.28,0.32,0.36,0.4,0.44,0.48,0.52,0.56,0.6,0.64,0.68,0.72,0.76,0.8,0.84,0.88,0.92,0.96,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"score":[0.0,0.9570411400134944,0.9319398909734105,0.9302986385863257,0.9028706279300991,0.8852706580332779,0.8594185116660356,0.856310722076401,0.8179239178255955,0.8070237279039993,0.738574917196555,0.7160162605223377,0.7129004795590319,0.7050569145179608,0.6794485407048896,0.6766622554361703,0.6573795177734141,0.6423472166302595,0.5057330344253046,0.48901890626676625,0.4710113495672381,0.4063429366848439,0.4035943423520649,0.394969597987167,0.37408873540759835,0.27163557604521316,0.10623491832282062,0.08457730432308397,0.03878109665790319,0.014018237608948159,0.012806047692894618,0.012281482056283377,0.011933857637417111,0.010644191979938822,0.009735591997787618,0.007367721309327224,0.0073346701136181025,0.007214065986394236,0.007193269069627639,0.006782142184335455,0.006251377003508168,0.006164093709780882,0.005345058349788545,0.0052950533497811425,0.00480701482896001,0.004643241632331541,0.004565933378745557,0.004445984707808437,0.004287389595710456,0.003938256108161342,0.0038472093409274155,0.0037595159294270264,0.0037122525787910976,0.00358820519180561,0.003521910058741362,0.0034719214241998864,0.0032574906822935568,0.003250784278129748,0.0032201449979846752,0.0031823183540550803,0.0031319326954512006,0.0029706537544391814,0.002911392277371902,0.002862379558739997,0.0028453483176017064,0.0027797191833006663,0.0027151276938301994,0.0026617792499077225,0.0026058382130788593,0.002294298673801265,0.002245356134461668,0.002236949699654378,0.002213649154273245,0.0021780964115718227,0.0020637362604522813,0.0019300654431466668,0.0017988896423827144,0.0017642310561413466,0.0017221311792376542,0.001633077806108288,0.001559251390136157,0.0015409412224689084,0.0014594399571869476,0.0014574895881339783,0.001369909172644096,0.0013473731317500959,0.0013325408477544987,0.0013297858095403514,0.0013021550667834461,0.0012860110563234217,0.00123038041834371,0.0011923100522930885,0.0011595769122973582,0.001150046930081805,0.0011465389551911648,0.0011398159541797723,0.001113751805193755,0.0011024358000492618,0.0010991737726359155,0.001097425753722181,0.001077922789054206,0.001072556661605814,0.0010671606467788641,0.0010322921711852368,0.0010247572608177574,0.0,0.001019278769636603,1.0]},"selected":{"id":"1357"},"selection_policy":{"id":"1356"}},"id":"1322","type":"ColumnDataSource"},{"attributes":{},"id":"1339","type":"BasicTicker"},{"attributes":{"label":{"value":"double click to copy P&amp;R"},"renderers":[{"id":"1347"}]},"id":"1359","type":"LegendItem"},{"attributes":{"background_fill_color":"#f5f5f5","below":[{"id":"1334"}],"center":[{"id":"1337"},{"id":"1341"},{"id":"1358"}],"height":200,"js_event_callbacks":{"doubletap":[{"id":"1363"}]},"left":[{"id":"1338"}],"renderers":[{"id":"1347"}],"sizing_mode":"scale_width","title":{"id":"1324"},"toolbar":{"id":"1342"},"toolbar_location":null,"width":200,"x_range":{"id":"1326"},"x_scale":{"id":"1330"},"y_range":{"id":"1328"},"y_scale":{"id":"1332"}},"id":"1323","subtype":"Figure","type":"Plot"},{"attributes":{"axis_label":"Recall","axis_line_color":null,"coordinates":null,"formatter":{"id":"1354"},"group":null,"major_label_policy":{"id":"1355"},"ticker":{"id":"1335"}},"id":"1334","type":"LinearAxis"},{"attributes":{},"id":"1330","type":"LinearScale"},{"attributes":{"axis":{"id":"1338"},"coordinates":null,"dimension":1,"grid_line_color":"white","group":null,"ticker":null},"id":"1341","type":"Grid"},{"attributes":{"line_alpha":0.2,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1346","type":"Line"},{"attributes":{},"id":"1352","type":"AllLabels"},{"attributes":{"coordinates":null,"data_source":{"id":"1322"},"glyph":{"id":"1344"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1346"},"nonselection_glyph":{"id":"1345"},"view":{"id":"1348"}},"id":"1347","type":"GlyphRenderer"},{"attributes":{},"id":"1357","type":"Selection"},{"attributes":{},"id":"1356","type":"UnionRenderers"},{"attributes":{},"id":"1354","type":"BasicTickFormatter"},{"attributes":{},"id":"1351","type":"BasicTickFormatter"},{"attributes":{},"id":"1328","type":"DataRange1d"},{"attributes":{"source":{"id":"1322"}},"id":"1348","type":"CDSView"},{"attributes":{"callback":{"id":"1360"},"formatters":{"prec":"printf","rec":"printf"},"mode":"vline","tooltips":[["score","@score{0.0000 a}"],["Prec","@prec"],["Recall","@rec"]]},"id":"1361","type":"HoverTool"},{"attributes":{},"id":"1332","type":"LinearScale"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1359"}]},"id":"1358","type":"Legend"},{"attributes":{"coordinates":null,"group":null,"text":"class: person AP = 100.0%"},"id":"1324","type":"Title"},{"attributes":{"code":"navigator.clipboard.writeText(window.spr_text);"},"id":"1363","type":"CustomJS"},{"attributes":{"line_alpha":0.1,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1345","type":"Line"},{"attributes":{"axis":{"id":"1334"},"coordinates":null,"grid_line_color":"white","group":null,"ticker":null},"id":"1337","type":"Grid"},{"attributes":{},"id":"1326","type":"DataRange1d"},{"attributes":{},"id":"1335","type":"BasicTicker"}],"root_ids":["1323"]},"title":"Bokeh Application","version":"2.4.3"}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('1481').textContent;
+              const render_items = [{"docid":"adf56413-ca1f-4b4d-9298-76abd895c99c","root_ids":["1323"],"roots":{"1323":"f5a27f01-bdfb-4645-bd74-2cbebc2f196e"}}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

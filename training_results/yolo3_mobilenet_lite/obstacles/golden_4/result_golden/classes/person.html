@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>P-R curve for person</title>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div class="bk-root" id="a5a1cd97-1e6a-4fcf-8504-89590c26c6cc" data-root-id="1323"></div>
+  
+    <script type="application/json" id="1481">
+      {"13df796e-9518-4a4a-bfdb-1ba11dae7b1b":{"defs":[],"roots":{"references":[{"attributes":{"axis_label":"Recall","axis_line_color":null,"coordinates":null,"formatter":{"id":"1354"},"group":null,"major_label_policy":{"id":"1355"},"ticker":{"id":"1335"}},"id":"1334","type":"LinearAxis"},{"attributes":{},"id":"1355","type":"AllLabels"},{"attributes":{"background_fill_color":"#f5f5f5","below":[{"id":"1334"}],"center":[{"id":"1337"},{"id":"1341"},{"id":"1358"}],"height":200,"js_event_callbacks":{"doubletap":[{"id":"1363"}]},"left":[{"id":"1338"}],"renderers":[{"id":"1347"}],"sizing_mode":"scale_width","title":{"id":"1324"},"toolbar":{"id":"1342"},"toolbar_location":null,"width":200,"x_range":{"id":"1326"},"x_scale":{"id":"1330"},"y_range":{"id":"1328"},"y_scale":{"id":"1332"}},"id":"1323","subtype":"Figure","type":"Plot"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1359"}]},"id":"1358","type":"Legend"},{"attributes":{"axis":{"id":"1338"},"coordinates":null,"dimension":1,"grid_line_color":"white","group":null,"ticker":null},"id":"1341","type":"Grid"},{"attributes":{"label":{"value":"double click to copy P&amp;R"},"renderers":[{"id":"1347"}]},"id":"1359","type":"LegendItem"},{"attributes":{"coordinates":null,"group":null,"text":"class: person AP = 95.07692307692307%"},"id":"1324","type":"Title"},{"attributes":{"code":"var data=cb_data.renderer.data_source.data;\n         var line_id=cb_data.index.line_indices[0];\n         var x=cb_data.geometry.x;\n         if(data['rec'][line_id+1]-x &gt; x-data['rec'][line_id])\n         {\n            window.spr_text=data['score'][line_id]+'\t'+data['prec'][line_id]+'\t'+data['rec'][line_id];\n         }\n         else\n         {\n            window.spr_text=data['score'][line_id+1]+'\t'+data['prec'][line_id+1]+'\t'+data['rec'][line_id+1];\n         }\n         "},"id":"1360","type":"CustomJS"},{"attributes":{},"id":"1328","type":"DataRange1d"},{"attributes":{},"id":"1354","type":"BasicTickFormatter"},{"attributes":{"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1344","type":"Line"},{"attributes":{},"id":"1351","type":"BasicTickFormatter"},{"attributes":{},"id":"1357","type":"Selection"},{"attributes":{},"id":"1352","type":"AllLabels"},{"attributes":{"line_alpha":0.2,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1346","type":"Line"},{"attributes":{},"id":"1356","type":"UnionRenderers"},{"attributes":{"coordinates":null,"data_source":{"id":"1322"},"glyph":{"id":"1344"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1346"},"nonselection_glyph":{"id":"1345"},"view":{"id":"1348"}},"id":"1347","type":"GlyphRenderer"},{"attributes":{"tools":[{"id":"1361"}]},"id":"1342","type":"Toolbar"},{"attributes":{"data":{"prec":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.9545454545454546,0.9230769230769231,0.9230769230769231,0.9230769230769231,0.9230769230769231,0.8888888888888888,0.8571428571428571,0.8275862068965517,0.8,0.7741935483870968,0.75,0.7272727272727273,0.7058823529411765,0.6857142857142857,0.6666666666666666,0.6486486486486487,0.631578947368421,0.6153846153846154,0.6,0.5853658536585366,0.5714285714285714,0.5581395348837209,0.5454545454545454,0.5333333333333333,0.5217391304347826,0.5106382978723404,0.5,0.4897959183673469,0.48,0.47058823529411764,0.46153846153846156,0.4528301886792453,0.4444444444444444,0.43636363636363634,0.42857142857142855,0.42105263157894735,0.41379310344827586,0.4067796610169492,0.4,0.39344262295081966,0.3870967741935484,0.38095238095238093,0.375,0.36923076923076925,0.36363636363636365,0.3582089552238806,0.35294117647058826,0.34782608695652173,0.34285714285714286,0.3380281690140845,0.3333333333333333,0.3287671232876712,0.32432432432432434,0.32,0.3157894736842105,0.3116883116883117,0.3076923076923077,0.3037974683544304,0.3,0.2962962962962963,0.2926829268292683,0.2891566265060241,0.2857142857142857,0.2823529411764706,0.27906976744186046,0.27586206896551724,0.2727272727272727,0.2696629213483146,0.26666666666666666,0.26373626373626374,0.2608695652173913,0.25806451612903225,0.2553191489361702,0.25263157894736843,0.25,0.24742268041237114,0.24489795918367346,0.24242424242424243,0.24,0.2376237623762376,0.23529411764705882,0.23300970873786409,0.23076923076923078,0.22857142857142856,0.22641509433962265,0.22429906542056074,0.2222222222222222,0.0,0.0],"rec":[0.0,0.04,0.08,0.12,0.16,0.2,0.24,0.28,0.32,0.36,0.4,0.44,0.48,0.52,0.56,0.6,0.64,0.68,0.72,0.76,0.8,0.84,0.84,0.84,0.88,0.92,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,1.0],"score":[0.0,0.9903955935591924,0.978507980771532,0.9742415813246055,0.9670348329323986,0.9611171132876173,0.9609737871588209,0.9563362018056587,0.9547898968317448,0.9544193279117366,0.9524624673587212,0.9474395510563483,0.9443930679650272,0.9420980658074747,0.9275273677098284,0.9148137871458175,0.898834998456195,0.8676192602864674,0.8654423067021355,0.860798547297577,0.8226252728680272,0.7700478014045586,0.7686736756419563,0.6843696784180793,0.6528383902240762,0.5484430532867179,0.5377175276958042,0.14171291152171506,0.13195154842136958,0.13188235027811324,0.10340746270201429,0.031454423789353037,0.029301931662552683,0.02843246559361967,0.025624216207800865,0.02246833326272346,0.021480929994245335,0.021123293957710065,0.019579842527383873,0.017998748950752486,0.01741925911400255,0.014845046844166876,0.011231582155879494,0.010934032907947255,0.0104913403614601,0.01027198421380593,0.008501278488174668,0.00824477338522811,0.008048857489281858,0.007609801061997379,0.00732886871527566,0.007208931988202272,0.007048080894692582,0.006728918499790293,0.006296436870780464,0.005864437577188131,0.005568235718982462,0.0052617121173074155,0.004541805588144099,0.00422587967712984,0.004168985726207164,0.004069400051751604,0.00390039649803664,0.0035635977068277924,0.0032701676760663045,0.0029392524923868707,0.0028331175356589994,0.0028041718651472536,0.0027097335034549364,0.0026793124763273973,0.0026546913377462483,0.0026466482146261794,0.00264551881881106,0.002612013442423733,0.0026013975393955058,0.0024974606376094166,0.0024820192699296917,0.0024575767468829612,0.002437720924012149,0.002358056928667973,0.0022882674451840668,0.002280499845942044,0.002151642060433695,0.002108205704992483,0.0020554261179214772,0.001956694523899169,0.001922780854313473,0.00190930104849487,0.0018903965216839763,0.001857340146582953,0.0018159873442572805,0.0017557026730060377,0.0017249131609644586,0.0015937365083515953,0.0014794829002311577,0.001396024945510277,0.001370067324615365,0.001333905229225732,0.0013144403260858459,0.001303888433850653,0.0012268910956996087,0.0012024602806527326,0.0011897319301826248,0.0011450251210216728,0.0011267583115694563,0.0010519276356954488,0.0010467899750572565,0.0010212283407918035,0.0,0.0010209886718781785,1.0]},"selected":{"id":"1357"},"selection_policy":{"id":"1356"}},"id":"1322","type":"ColumnDataSource"},{"attributes":{"axis":{"id":"1334"},"coordinates":null,"grid_line_color":"white","group":null,"ticker":null},"id":"1337","type":"Grid"},{"attributes":{"line_alpha":0.1,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1345","type":"Line"},{"attributes":{},"id":"1335","type":"BasicTicker"},{"attributes":{},"id":"1332","type":"LinearScale"},{"attributes":{"source":{"id":"1322"}},"id":"1348","type":"CDSView"},{"attributes":{},"id":"1339","type":"BasicTicker"},{"attributes":{},"id":"1330","type":"LinearScale"},{"attributes":{"code":"navigator.clipboard.writeText(window.spr_text);"},"id":"1363","type":"CustomJS"},{"attributes":{"callback":{"id":"1360"},"formatters":{"prec":"printf","rec":"printf"},"mode":"vline","tooltips":[["score","@score{0.0000 a}"],["Prec","@prec"],["Recall","@rec"]]},"id":"1361","type":"HoverTool"},{"attributes":{},"id":"1326","type":"DataRange1d"},{"attributes":{"axis_label":"Precision","axis_line_color":null,"coordinates":null,"formatter":{"id":"1351"},"group":null,"major_label_policy":{"id":"1352"},"ticker":{"id":"1339"}},"id":"1338","type":"LinearAxis"}],"root_ids":["1323"]},"title":"Bokeh Application","version":"2.4.3"}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('1481').textContent;
+              const render_items = [{"docid":"13df796e-9518-4a4a-bfdb-1ba11dae7b1b","root_ids":["1323"],"roots":{"1323":"a5a1cd97-1e6a-4fcf-8504-89590c26c6cc"}}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

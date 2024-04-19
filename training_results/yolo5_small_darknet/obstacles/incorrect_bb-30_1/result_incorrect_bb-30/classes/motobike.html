@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>P-R curve for motobike</title>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div class="bk-root" id="5481ba39-7a9e-4579-b2f0-1913d5d7307d" data-root-id="1163"></div>
+  
+    <script type="application/json" id="1321">
+      {"ca8c6472-41c9-4081-a5a7-382d06f85a04":{"defs":[],"roots":{"references":[{"attributes":{"axis":{"id":"1178"},"coordinates":null,"dimension":1,"grid_line_color":"white","group":null,"ticker":null},"id":"1181","type":"Grid"},{"attributes":{},"id":"1170","type":"LinearScale"},{"attributes":{"data":{"prec":[1.0,1.0,1.0,1.0,0.8888888888888888,0.8888888888888888,0.8888888888888888,0.8888888888888888,0.8888888888888888,0.8888888888888888,0.8,0.75,0.75,0.6923076923076923,0.6666666666666666,0.6666666666666666,0.625,0.5882352941176471,0.5555555555555556,0.5263157894736842,0.5,0.47619047619047616,0.45454545454545453,0.43478260869565216,0.4166666666666667,0.4,0.38461538461538464,0.37037037037037035,0.35714285714285715,0.3448275862068966,0.3333333333333333,0.3225806451612903,0.3125,0.30303030303030304,0.29411764705882354,0.2857142857142857,0.2777777777777778,0.2702702702702703,0.2631578947368421,0.2564102564102564,0.25,0.24390243902439024,0.23809523809523808,0.23255813953488372,0.22727272727272727,0.2222222222222222,0.21739130434782608,0.2127659574468085,0.20833333333333334,0.20408163265306123,0.0,0.0],"rec":[0.0,0.03571428571428571,0.07142857142857142,0.10714285714285714,0.10714285714285714,0.14285714285714285,0.17857142857142858,0.21428571428571427,0.25,0.2857142857142857,0.2857142857142857,0.2857142857142857,0.32142857142857145,0.32142857142857145,0.32142857142857145,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,0.35714285714285715,1.0],"score":[0.0,0.22443005854546527,0.2177548910715359,0.18899681464207063,0.10616956101877939,0.09980263475766193,0.0996214862812419,0.09907297819814165,0.09887798061115749,0.07569163785567934,0.04444920354406179,0.02910273802977925,0.020354360204336897,0.01691879327223833,0.016724050187058026,0.015226717785721489,0.01507417190657101,0.01389441274773695,0.011878696393973431,0.01136300417647007,0.009524094999800337,0.007658565596884992,0.006892613393400526,0.006569399957699118,0.005343098779358124,0.004417094016111567,0.004179741476702997,0.004114362820076406,0.004104241796639485,0.002906397110159775,0.0026742517472496674,0.002092204525983715,0.002031536222896285,0.0018183012249120556,0.0015686362424960493,0.001512479663129604,0.0014722184244483905,0.0014720193652877633,0.001444248665283504,0.0013809356187298727,0.0013807618187498677,0.0012960427820390488,0.0012334654231761291,0.001200359515667479,0.0011678414733309744,0.0011607600870222265,0.00112585545725144,0.0011222387143688117,0.0010946984997281528,0.0,0.0010670681852400707,1.0]},"selected":{"id":"1197"},"selection_policy":{"id":"1196"}},"id":"1162","type":"ColumnDataSource"},{"attributes":{"source":{"id":"1162"}},"id":"1188","type":"CDSView"},{"attributes":{},"id":"1179","type":"BasicTicker"},{"attributes":{"axis_label":"Precision","axis_line_color":null,"coordinates":null,"formatter":{"id":"1191"},"group":null,"major_label_policy":{"id":"1192"},"ticker":{"id":"1179"}},"id":"1178","type":"LinearAxis"},{"attributes":{"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1184","type":"Line"},{"attributes":{"line_alpha":0.1,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1185","type":"Line"},{"attributes":{"coordinates":null,"group":null,"text":"class: motobike AP = 31.646825396825395%"},"id":"1164","type":"Title"},{"attributes":{"axis_label":"Recall","axis_line_color":null,"coordinates":null,"formatter":{"id":"1194"},"group":null,"major_label_policy":{"id":"1195"},"ticker":{"id":"1175"}},"id":"1174","type":"LinearAxis"},{"attributes":{},"id":"1192","type":"AllLabels"},{"attributes":{},"id":"1191","type":"BasicTickFormatter"},{"attributes":{},"id":"1166","type":"DataRange1d"},{"attributes":{"background_fill_color":"#f5f5f5","below":[{"id":"1174"}],"center":[{"id":"1177"},{"id":"1181"},{"id":"1198"}],"height":200,"js_event_callbacks":{"doubletap":[{"id":"1203"}]},"left":[{"id":"1178"}],"renderers":[{"id":"1187"}],"sizing_mode":"scale_width","title":{"id":"1164"},"toolbar":{"id":"1182"},"toolbar_location":null,"width":200,"x_range":{"id":"1166"},"x_scale":{"id":"1170"},"y_range":{"id":"1168"},"y_scale":{"id":"1172"}},"id":"1163","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1196","type":"UnionRenderers"},{"attributes":{},"id":"1175","type":"BasicTicker"},{"attributes":{"tools":[{"id":"1201"}]},"id":"1182","type":"Toolbar"},{"attributes":{},"id":"1197","type":"Selection"},{"attributes":{},"id":"1194","type":"BasicTickFormatter"},{"attributes":{},"id":"1195","type":"AllLabels"},{"attributes":{"code":"navigator.clipboard.writeText(window.spr_text);"},"id":"1203","type":"CustomJS"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1199"}]},"id":"1198","type":"Legend"},{"attributes":{"line_alpha":0.2,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1186","type":"Line"},{"attributes":{"axis":{"id":"1174"},"coordinates":null,"grid_line_color":"white","group":null,"ticker":null},"id":"1177","type":"Grid"},{"attributes":{},"id":"1168","type":"DataRange1d"},{"attributes":{"coordinates":null,"data_source":{"id":"1162"},"glyph":{"id":"1184"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1186"},"nonselection_glyph":{"id":"1185"},"view":{"id":"1188"}},"id":"1187","type":"GlyphRenderer"},{"attributes":{},"id":"1172","type":"LinearScale"},{"attributes":{"code":"var data=cb_data.renderer.data_source.data;\n         var line_id=cb_data.index.line_indices[0];\n         var x=cb_data.geometry.x;\n         if(data['rec'][line_id+1]-x &gt; x-data['rec'][line_id])\n         {\n            window.spr_text=data['score'][line_id]+'\t'+data['prec'][line_id]+'\t'+data['rec'][line_id];\n         }\n         else\n         {\n            window.spr_text=data['score'][line_id+1]+'\t'+data['prec'][line_id+1]+'\t'+data['rec'][line_id+1];\n         }\n         "},"id":"1200","type":"CustomJS"},{"attributes":{"label":{"value":"double click to copy P&amp;R"},"renderers":[{"id":"1187"}]},"id":"1199","type":"LegendItem"},{"attributes":{"callback":{"id":"1200"},"formatters":{"prec":"printf","rec":"printf"},"mode":"vline","tooltips":[["score","@score{0.0000 a}"],["Prec","@prec"],["Recall","@rec"]]},"id":"1201","type":"HoverTool"}],"root_ids":["1163"]},"title":"Bokeh Application","version":"2.4.3"}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('1321').textContent;
+              const render_items = [{"docid":"ca8c6472-41c9-4081-a5a7-382d06f85a04","root_ids":["1163"],"roots":{"1163":"5481ba39-7a9e-4579-b2f0-1913d5d7307d"}}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>
