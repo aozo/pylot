@@ -6,7 +6,7 @@ Install fiftyone: https://docs.voxel51.com/getting_started/install.html
 
 Example usage:
 
-    python split_dataset.py -d <image_dir>/ -l <labels>.json
+    python split_dataset.py -s -d <image_dir>/ -l <labels>.json
 """
 
 import argparse
@@ -32,6 +32,20 @@ OBSTACLE_CLASSES = [
         "traffic_sign_60",
         "traffic_sign_90",
         "vehicle"]
+
+SUPER_CATEGORY = {
+        "RSVD": "RSVD",
+        "bike": "vehicle",
+        "motobike": "vehicle",
+        "person": "pedestrian",
+        "traffic_sign_30": "sign",
+        "traffic_sign_60": "sign",
+        "traffic_sign_90": "sign",
+        "traffic_light_green": "light",
+        "traffic_light_orange": "light",
+        "traffic_light_red": "light",
+        "vehicle": "vehicle"
+        }
 
 if __name__ == "__main__":
 
@@ -75,9 +89,11 @@ if __name__ == "__main__":
                     dataset_type=dataset_type, \
                     classes=["RSVD"] + SIGN_CLASSES) # Class ID 0 is reserved for COCO datasets
 
-            # Reformat JSON with line breaks and indentation
+            # Reformat JSON with line breaks and indentation and separate into super categories
             with open(label_file_name + "_signs.json", "r+") as f:
                 data = json.load(f)
+                for category in data["categories"]:
+                    category["supercategory"] = SUPER_CATEGORY[category["name"]]
                 j = json.dumps(data, indent=4)
                 f.seek(0)
                 f.write(j)
@@ -91,9 +107,11 @@ if __name__ == "__main__":
                     dataset_type=dataset_type, \
                     classes=["RSVD"] + LIGHT_CLASSES) # Class ID 0 is reserved for COCO datasets
 
-            # Reformat JSON with line breaks and indentation
+            # Reformat JSON with line breaks and indentation and separate into super categories
             with open(label_file_name + "_lights.json", "r+") as f:
                 data = json.load(f)
+                for category in data["categories"]:
+                    category["supercategory"] = SUPER_CATEGORY[category["name"]]
                 j = json.dumps(data, indent=4)
                 f.seek(0)
                 f.write(j)
@@ -107,9 +125,11 @@ if __name__ == "__main__":
                     dataset_type=dataset_type, \
                     classes=["RSVD"] + OBSTACLE_CLASSES) # Class ID 0 is reserved for COCO datasets
 
-            # Reformat JSON with line breaks and indentation
+            # Reformat JSON with line breaks and indentation and separate into super categories
             with open(label_file_name + "_obstacles.json", "r+") as f:
                 data = json.load(f)
+                for category in data["categories"]:
+                    category["supercategory"] = SUPER_CATEGORY[category["name"]]
                 j = json.dumps(data, indent=4)
                 f.seek(0)
                 f.write(j)
