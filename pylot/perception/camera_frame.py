@@ -82,6 +82,7 @@ class CameraFrame(object):
             obstacle.draw_on_frame(self,
                                    bbox_color_map,
                                    ego_transform=transform)
+        print("==========")
 
     def draw_box(self,
                  start_point: Vector2D,

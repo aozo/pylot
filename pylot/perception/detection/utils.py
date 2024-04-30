@@ -409,21 +409,6 @@ def load_coco_labels(labels_path, is_zero_index=False):
             index += 1
     return labels_map
 
-def load_model_outputs(outputs_path):
-    """Returns a map from the model output to the dictionary key.
-
-    Args:
-        outputs_path (:obj:`str`): Path to a file storing a dictionary key on each line.
-    """
-    outputs_map = {}
-    with open(outputs_path) as outputs_file:
-        outputs = outputs_file.read().splitlines()
-        outputs_map['boxes'] = outputs[0]
-        outputs_map['scores'] = outputs[1]
-        outputs_map['classes'] = outputs[2]
-        outputs_map['detections'] = outputs[3]
-    return outputs_map
-
 def load_coco_bbox_colors(coco_labels):
     """Returns a map from label to color."""
     # Transform to RGB values.

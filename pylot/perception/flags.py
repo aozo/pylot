@@ -5,8 +5,20 @@ flags.DEFINE_list(
     'obstacle_detection_model_paths',
     'dependencies/models/obstacle_detection/faster-rcnn/',  # noqa: E501
     'Comma-separated list of model paths')
+flags.DEFINE_string(
+    'obstacle_detection_model_paths_2',
+    '',
+    'Second obstacle detection model for ensemble')
+flags.DEFINE_string(
+    'obstacle_detection_model_paths_3',
+    '',
+    'Third obstacle detection model for ensemble')
 flags.DEFINE_list('obstacle_detection_model_names', 'faster-rcnn',
                   'Comma-separated list of model names')
+flags.DEFINE_list('obstacle_detection_model_names_2', '',
+                  'Name of second obstacle detection model for ensemble')
+flags.DEFINE_list('obstacle_detection_model_names_3', '',
+                  'Name of third obstacle detection model for ensemble')
 flags.DEFINE_float(
     'obstacle_detection_gpu_memory_fraction', 0.3,
     'GPU memory fraction allocated to each obstacle detector operator')
@@ -16,10 +28,14 @@ flags.DEFINE_float('obstacle_detection_min_score_threshold', 0.5,
                    'Min score threshold for bounding box')
 flags.DEFINE_string('path_coco_labels', 'dependencies/models/pylot.names',
                     'Path to the COCO labels')
-flags.DEFINE_string('path_model_outputs', 'dependencies/models/pylot.outputs',
-                    'Path to model output dictionary keys')
+flags.DEFINE_bool('tf_model_zoo', False,
+                  'True if object detection model is from TF Model Zoo')
 flags.DEFINE_string('path_yolo_anchors', 'dependencies/models/yolo3_anchors.txt',
                     'Path to YOLO anchors required for post-processing output from a YOLO model')
+flags.DEFINE_string('path_yolo_anchors_2', '',
+                    'Path to YOLO anchors for second obstacle detection model for ensemble')
+flags.DEFINE_string('path_yolo_anchors_3', '',
+                    'Path to YOLO anchors for third obstacle detection model for ensemble')
 flags.DEFINE_float('dynamic_obstacle_distance_threshold', 50.0,
                    'Max distance to consider dynamic obstacles [m]')
 flags.DEFINE_float(
