@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>P-R curve for traffic_sign_60</title>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div class="bk-root" id="02f75eba-263e-46a1-9964-d299287eaa7d" data-root-id="1643"></div>
+  
+    <script type="application/json" id="1801">
+      {"a137c600-f0cb-4edb-8741-9b691aca4905":{"defs":[],"roots":{"references":[{"attributes":{},"id":"1675","type":"AllLabels"},{"attributes":{"code":"var data=cb_data.renderer.data_source.data;\n         var line_id=cb_data.index.line_indices[0];\n         var x=cb_data.geometry.x;\n         if(data['rec'][line_id+1]-x &gt; x-data['rec'][line_id])\n         {\n            window.spr_text=data['score'][line_id]+'\t'+data['prec'][line_id]+'\t'+data['rec'][line_id];\n         }\n         else\n         {\n            window.spr_text=data['score'][line_id+1]+'\t'+data['prec'][line_id+1]+'\t'+data['rec'][line_id+1];\n         }\n         "},"id":"1680","type":"CustomJS"},{"attributes":{"background_fill_color":"#f5f5f5","below":[{"id":"1654"}],"center":[{"id":"1657"},{"id":"1661"},{"id":"1678"}],"height":200,"js_event_callbacks":{"doubletap":[{"id":"1683"}]},"left":[{"id":"1658"}],"renderers":[{"id":"1667"}],"sizing_mode":"scale_width","title":{"id":"1644"},"toolbar":{"id":"1662"},"toolbar_location":null,"width":200,"x_range":{"id":"1646"},"x_scale":{"id":"1650"},"y_range":{"id":"1648"},"y_scale":{"id":"1652"}},"id":"1643","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1648","type":"DataRange1d"},{"attributes":{},"id":"1652","type":"LinearScale"},{"attributes":{},"id":"1646","type":"DataRange1d"},{"attributes":{"axis":{"id":"1654"},"coordinates":null,"grid_line_color":"white","group":null,"ticker":null},"id":"1657","type":"Grid"},{"attributes":{"tools":[{"id":"1681"}]},"id":"1662","type":"Toolbar"},{"attributes":{},"id":"1674","type":"BasicTickFormatter"},{"attributes":{},"id":"1659","type":"BasicTicker"},{"attributes":{"line_alpha":0.1,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1665","type":"Line"},{"attributes":{"axis_label":"Precision","axis_line_color":null,"coordinates":null,"formatter":{"id":"1671"},"group":null,"major_label_policy":{"id":"1672"},"ticker":{"id":"1659"}},"id":"1658","type":"LinearAxis"},{"attributes":{"data":{"prec":[1.0,1.0,1.0,1.0,1.0,1.0,0.875,0.875,0.875,0.8,0.8,0.75,0.75,0.7142857142857143,0.7142857142857143,0.6666666666666666,0.625,0.5882352941176471,0.5555555555555556,0.5263157894736842,0.5,0.47619047619047616,0.45454545454545453,0.43478260869565216,0.4166666666666667,0.4,0.38461538461538464,0.37037037037037035,0.35714285714285715,0.3448275862068966,0.3333333333333333,0.3225806451612903,0.3125,0.30303030303030304,0.29411764705882354,0.2857142857142857,0.2777777777777778,0.2702702702702703,0.2631578947368421,0.2564102564102564,0.25,0.24390243902439024,0.23809523809523808,0.23255813953488372,0.22727272727272727,0.2222222222222222,0.21739130434782608,0.2127659574468085,0.20833333333333334,0.20408163265306123,0.2,0.19607843137254902,0.19230769230769232,0.0,0.0],"rec":[0.0,0.07142857142857142,0.14285714285714285,0.21428571428571427,0.2857142857142857,0.35714285714285715,0.35714285714285715,0.42857142857142855,0.5,0.5,0.5714285714285714,0.5714285714285714,0.6428571428571429,0.6428571428571429,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,1.0],"score":[0.0,0.5697165697314404,0.5330462851350397,0.4518192612077776,0.4054570738143326,0.37716888092325007,0.3605585591379281,0.33241998732525957,0.3287164813251664,0.2372443980011596,0.22135587155331748,0.12161675103039471,0.0661053351524199,0.020379972601176632,0.015950335551716988,0.013657982918986011,0.005401925809831121,0.002539340456213901,0.0022191707113587422,0.0021487404404829102,0.0019457188388912194,0.001931195069471911,0.0019309713848685711,0.0017265138140405561,0.0016920109617858392,0.0016618090485960996,0.001629665650752149,0.0015001392033966998,0.0014663290657878844,0.0013865081016278813,0.0013603532903865706,0.0013544288615823727,0.0013081778940570166,0.0012968419364228767,0.0012860582395208264,0.0012804655521848202,0.0012644936799134365,0.001233487102607539,0.001217510876858438,0.0011624134491308863,0.001155249507088299,0.0011418428376610903,0.0011158913521960995,0.0011152462464332838,0.0010975580372401678,0.0010892342060246224,0.001085252179223159,0.0010714522207116647,0.00106623067408676,0.0010128279391109843,0.0010060744159529414,0.001000754484484001,0.0,0.0010006942559890042,1.0]},"selected":{"id":"1677"},"selection_policy":{"id":"1676"}},"id":"1642","type":"ColumnDataSource"},{"attributes":{},"id":"1676","type":"UnionRenderers"},{"attributes":{"code":"navigator.clipboard.writeText(window.spr_text);"},"id":"1683","type":"CustomJS"},{"attributes":{},"id":"1655","type":"BasicTicker"},{"attributes":{},"id":"1672","type":"AllLabels"},{"attributes":{"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1664","type":"Line"},{"attributes":{"axis_label":"Recall","axis_line_color":null,"coordinates":null,"formatter":{"id":"1674"},"group":null,"major_label_policy":{"id":"1675"},"ticker":{"id":"1655"}},"id":"1654","type":"LinearAxis"},{"attributes":{"line_alpha":0.2,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1666","type":"Line"},{"attributes":{"axis":{"id":"1658"},"coordinates":null,"dimension":1,"grid_line_color":"white","group":null,"ticker":null},"id":"1661","type":"Grid"},{"attributes":{"coordinates":null,"group":null,"text":"class: traffic_sign_60 AP = 64.38775510204081%"},"id":"1644","type":"Title"},{"attributes":{"label":{"value":"double click to copy P&amp;R"},"renderers":[{"id":"1667"}]},"id":"1679","type":"LegendItem"},{"attributes":{"source":{"id":"1642"}},"id":"1668","type":"CDSView"},{"attributes":{},"id":"1677","type":"Selection"},{"attributes":{"coordinates":null,"data_source":{"id":"1642"},"glyph":{"id":"1664"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1666"},"nonselection_glyph":{"id":"1665"},"view":{"id":"1668"}},"id":"1667","type":"GlyphRenderer"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1679"}]},"id":"1678","type":"Legend"},{"attributes":{"callback":{"id":"1680"},"formatters":{"prec":"printf","rec":"printf"},"mode":"vline","tooltips":[["score","@score{0.0000 a}"],["Prec","@prec"],["Recall","@rec"]]},"id":"1681","type":"HoverTool"},{"attributes":{},"id":"1650","type":"LinearScale"},{"attributes":{},"id":"1671","type":"BasicTickFormatter"}],"root_ids":["1643"]},"title":"Bokeh Application","version":"2.4.3"}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('1801').textContent;
+              const render_items = [{"docid":"a137c600-f0cb-4edb-8741-9b691aca4905","root_ids":["1643"],"roots":{"1643":"02f75eba-263e-46a1-9964-d299287eaa7d"}}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

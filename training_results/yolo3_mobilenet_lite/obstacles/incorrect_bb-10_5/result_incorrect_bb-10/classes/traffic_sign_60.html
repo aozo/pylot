@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>P-R curve for traffic_sign_60</title>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div class="bk-root" id="818e7eec-bd80-47fe-9f90-3d178f8a3a8a" data-root-id="1643"></div>
+  
+    <script type="application/json" id="1801">
+      {"1f88a87f-8def-43b3-8dcd-00dba326c422":{"defs":[],"roots":{"references":[{"attributes":{"source":{"id":"1642"}},"id":"1668","type":"CDSView"},{"attributes":{"coordinates":null,"data_source":{"id":"1642"},"glyph":{"id":"1664"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1666"},"nonselection_glyph":{"id":"1665"},"view":{"id":"1668"}},"id":"1667","type":"GlyphRenderer"},{"attributes":{},"id":"1655","type":"BasicTicker"},{"attributes":{"label":{"value":"double click to copy P&amp;R"},"renderers":[{"id":"1667"}]},"id":"1679","type":"LegendItem"},{"attributes":{"line_alpha":0.2,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1666","type":"Line"},{"attributes":{"axis":{"id":"1658"},"coordinates":null,"dimension":1,"grid_line_color":"white","group":null,"ticker":null},"id":"1661","type":"Grid"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1679"}]},"id":"1678","type":"Legend"},{"attributes":{"callback":{"id":"1680"},"formatters":{"prec":"printf","rec":"printf"},"mode":"vline","tooltips":[["score","@score{0.0000 a}"],["Prec","@prec"],["Recall","@rec"]]},"id":"1681","type":"HoverTool"},{"attributes":{"tools":[{"id":"1681"}]},"id":"1662","type":"Toolbar"},{"attributes":{"code":"var data=cb_data.renderer.data_source.data;\n         var line_id=cb_data.index.line_indices[0];\n         var x=cb_data.geometry.x;\n         if(data['rec'][line_id+1]-x &gt; x-data['rec'][line_id])\n         {\n            window.spr_text=data['score'][line_id]+'\t'+data['prec'][line_id]+'\t'+data['rec'][line_id];\n         }\n         else\n         {\n            window.spr_text=data['score'][line_id+1]+'\t'+data['prec'][line_id+1]+'\t'+data['rec'][line_id+1];\n         }\n         "},"id":"1680","type":"CustomJS"},{"attributes":{"data":{"prec":[1.0,1.0,1.0,1.0,1.0,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8333333333333334,0.8333333333333334,0.8333333333333334,0.8333333333333334,0.8333333333333334,0.7692307692307693,0.7333333333333333,0.7333333333333333,0.7058823529411765,0.7058823529411765,0.6666666666666666,0.631578947368421,0.6,0.5714285714285714,0.5454545454545454,0.5217391304347826,0.5,0.48,0.46153846153846156,0.4444444444444444,0.42857142857142855,0.41379310344827586,0.4,0.3870967741935484,0.375,0.0,0.0],"rec":[0.0,0.07142857142857142,0.14285714285714285,0.21428571428571427,0.2857142857142857,0.2857142857142857,0.35714285714285715,0.42857142857142855,0.42857142857142855,0.5,0.5714285714285714,0.6428571428571429,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7857142857142857,0.7857142857142857,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,1.0],"score":[0.0,0.8309151281203242,0.8152794014474445,0.7825005548356785,0.6079914446068173,0.6033281568708944,0.5916613846018848,0.5030502920421895,0.4858437944481864,0.48515040706828927,0.44501228863755316,0.42831433954935605,0.40980950035306307,0.39314387685281815,0.3449902950347479,0.18758394699239567,0.1467807669370096,0.08474487211123538,0.06446651294419325,0.017652593197111766,0.017577365972769265,0.016927072015478162,0.016880039612734876,0.011620221578559242,0.004725074044150734,0.003908022265372985,0.0037520464538849385,0.0030238314718923076,0.0028523895558985046,0.00252410301965994,0.0014552967391497917,0.001062731540243278,0.0,0.001051942996280697,1.0]},"selected":{"id":"1677"},"selection_policy":{"id":"1676"}},"id":"1642","type":"ColumnDataSource"},{"attributes":{"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1664","type":"Line"},{"attributes":{},"id":"1659","type":"BasicTicker"},{"attributes":{},"id":"1674","type":"BasicTickFormatter"},{"attributes":{"axis_label":"Recall","axis_line_color":null,"coordinates":null,"formatter":{"id":"1674"},"group":null,"major_label_policy":{"id":"1675"},"ticker":{"id":"1655"}},"id":"1654","type":"LinearAxis"},{"attributes":{},"id":"1672","type":"AllLabels"},{"attributes":{},"id":"1671","type":"BasicTickFormatter"},{"attributes":{},"id":"1676","type":"UnionRenderers"},{"attributes":{},"id":"1652","type":"LinearScale"},{"attributes":{"background_fill_color":"#f5f5f5","below":[{"id":"1654"}],"center":[{"id":"1657"},{"id":"1661"},{"id":"1678"}],"height":200,"js_event_callbacks":{"doubletap":[{"id":"1683"}]},"left":[{"id":"1658"}],"renderers":[{"id":"1667"}],"sizing_mode":"scale_width","title":{"id":"1644"},"toolbar":{"id":"1662"},"toolbar_location":null,"width":200,"x_range":{"id":"1646"},"x_scale":{"id":"1650"},"y_range":{"id":"1648"},"y_scale":{"id":"1652"}},"id":"1643","subtype":"Figure","type":"Plot"},{"attributes":{"axis_label":"Precision","axis_line_color":null,"coordinates":null,"formatter":{"id":"1671"},"group":null,"major_label_policy":{"id":"1672"},"ticker":{"id":"1659"}},"id":"1658","type":"LinearAxis"},{"attributes":{},"id":"1648","type":"DataRange1d"},{"attributes":{"axis":{"id":"1654"},"coordinates":null,"grid_line_color":"white","group":null,"ticker":null},"id":"1657","type":"Grid"},{"attributes":{},"id":"1675","type":"AllLabels"},{"attributes":{},"id":"1677","type":"Selection"},{"attributes":{},"id":"1646","type":"DataRange1d"},{"attributes":{"coordinates":null,"group":null,"text":"class: traffic_sign_60 AP = 74.90596238495397%"},"id":"1644","type":"Title"},{"attributes":{"line_alpha":0.1,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1665","type":"Line"},{"attributes":{"code":"navigator.clipboard.writeText(window.spr_text);"},"id":"1683","type":"CustomJS"},{"attributes":{},"id":"1650","type":"LinearScale"}],"root_ids":["1643"]},"title":"Bokeh Application","version":"2.4.3"}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('1801').textContent;
+              const render_items = [{"docid":"1f88a87f-8def-43b3-8dcd-00dba326c422","root_ids":["1643"],"roots":{"1643":"818e7eec-bd80-47fe-9f90-3d178f8a3a8a"}}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

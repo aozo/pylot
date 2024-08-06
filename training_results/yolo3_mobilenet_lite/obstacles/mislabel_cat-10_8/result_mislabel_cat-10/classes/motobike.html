@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>P-R curve for motobike</title>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div class="bk-root" id="1a06e96b-969a-40ad-9bde-90b49c7f18e8" data-root-id="1163"></div>
+  
+    <script type="application/json" id="1321">
+      {"959a6010-dcf5-4c74-bfc7-54866daf1333":{"defs":[],"roots":{"references":[{"attributes":{"coordinates":null,"data_source":{"id":"1162"},"glyph":{"id":"1184"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1186"},"nonselection_glyph":{"id":"1185"},"view":{"id":"1188"}},"id":"1187","type":"GlyphRenderer"},{"attributes":{"line_alpha":0.1,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1185","type":"Line"},{"attributes":{"callback":{"id":"1200"},"formatters":{"prec":"printf","rec":"printf"},"mode":"vline","tooltips":[["score","@score{0.0000 a}"],["Prec","@prec"],["Recall","@rec"]]},"id":"1201","type":"HoverTool"},{"attributes":{},"id":"1175","type":"BasicTicker"},{"attributes":{"axis":{"id":"1174"},"coordinates":null,"grid_line_color":"white","group":null,"ticker":null},"id":"1177","type":"Grid"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1199"}]},"id":"1198","type":"Legend"},{"attributes":{},"id":"1195","type":"AllLabels"},{"attributes":{"label":{"value":"double click to copy P&amp;R"},"renderers":[{"id":"1187"}]},"id":"1199","type":"LegendItem"},{"attributes":{},"id":"1168","type":"DataRange1d"},{"attributes":{},"id":"1194","type":"BasicTickFormatter"},{"attributes":{},"id":"1196","type":"UnionRenderers"},{"attributes":{},"id":"1170","type":"LinearScale"},{"attributes":{"axis_label":"Recall","axis_line_color":null,"coordinates":null,"formatter":{"id":"1194"},"group":null,"major_label_policy":{"id":"1195"},"ticker":{"id":"1175"}},"id":"1174","type":"LinearAxis"},{"attributes":{"axis":{"id":"1178"},"coordinates":null,"dimension":1,"grid_line_color":"white","group":null,"ticker":null},"id":"1181","type":"Grid"},{"attributes":{},"id":"1197","type":"Selection"},{"attributes":{},"id":"1179","type":"BasicTicker"},{"attributes":{"code":"var data=cb_data.renderer.data_source.data;\n         var line_id=cb_data.index.line_indices[0];\n         var x=cb_data.geometry.x;\n         if(data['rec'][line_id+1]-x &gt; x-data['rec'][line_id])\n         {\n            window.spr_text=data['score'][line_id]+'\t'+data['prec'][line_id]+'\t'+data['rec'][line_id];\n         }\n         else\n         {\n            window.spr_text=data['score'][line_id+1]+'\t'+data['prec'][line_id+1]+'\t'+data['rec'][line_id+1];\n         }\n         "},"id":"1200","type":"CustomJS"},{"attributes":{},"id":"1192","type":"AllLabels"},{"attributes":{},"id":"1172","type":"LinearScale"},{"attributes":{"tools":[{"id":"1201"}]},"id":"1182","type":"Toolbar"},{"attributes":{"code":"navigator.clipboard.writeText(window.spr_text);"},"id":"1203","type":"CustomJS"},{"attributes":{"line_alpha":0.2,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1186","type":"Line"},{"attributes":{"background_fill_color":"#f5f5f5","below":[{"id":"1174"}],"center":[{"id":"1177"},{"id":"1181"},{"id":"1198"}],"height":200,"js_event_callbacks":{"doubletap":[{"id":"1203"}]},"left":[{"id":"1178"}],"renderers":[{"id":"1187"}],"sizing_mode":"scale_width","title":{"id":"1164"},"toolbar":{"id":"1182"},"toolbar_location":null,"width":200,"x_range":{"id":"1166"},"x_scale":{"id":"1170"},"y_range":{"id":"1168"},"y_scale":{"id":"1172"}},"id":"1163","subtype":"Figure","type":"Plot"},{"attributes":{"data":{"prec":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.8888888888888888,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8695652173913043,0.8333333333333334,0.8,0.7692307692307693,0.7407407407407407,0.7142857142857143,0.6896551724137931,0.6666666666666666,0.6451612903225806,0.625,0.6060606060606061,0.5882352941176471,0.5714285714285714,0.5555555555555556,0.5405405405405406,0.5263157894736842,0.5128205128205128,0.5,0.4878048780487805,0.47619047619047616,0.46511627906976744,0.45454545454545453,0.4444444444444444,0.43478260869565216,0.425531914893617,0.4166666666666667,0.40816326530612246,0.4,0.39215686274509803,0.38461538461538464,0.37735849056603776,0.37037037037037035,0.36363636363636365,0.35714285714285715,0.3508771929824561,0.3448275862068966,0.3389830508474576,0.3333333333333333,0.32786885245901637,0.3225806451612903,0.31746031746031744,0.3125,0.3076923076923077,0.30303030303030304,0.29850746268656714,0.29411764705882354,0.2898550724637681,0.2857142857142857,0.28169014084507044,0.2777777777777778,0.273972602739726,0.2702702702702703,0.0,0.0],"rec":[0.0,0.03571428571428571,0.07142857142857142,0.10714285714285714,0.14285714285714285,0.17857142857142858,0.21428571428571427,0.25,0.2857142857142857,0.2857142857142857,0.2857142857142857,0.32142857142857145,0.35714285714285715,0.39285714285714285,0.42857142857142855,0.42857142857142855,0.4642857142857143,0.5,0.5357142857142857,0.5714285714285714,0.6071428571428571,0.6428571428571429,0.6785714285714286,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,0.7142857142857143,1.0],"score":[0.0,0.9812648323810578,0.9809097931605493,0.9807570432889534,0.9750951771185967,0.9681017878350957,0.9671970846125078,0.955712415078068,0.8151302206045372,0.7577348569282094,0.5251274541440054,0.5211437271041142,0.5102714922934837,0.4992001221981859,0.45065305236228426,0.43301011573538517,0.4105995563736897,0.364308857975022,0.3312153066570307,0.30561064590634857,0.23709687135655955,0.22926719472564194,0.22408964746698246,0.19046227263904214,0.14159956014483566,0.12281794256020273,0.11159949052582885,0.1021101149497472,0.08689488598215878,0.071350733644433,0.05628936092799375,0.0392249526515398,0.029569629028801447,0.019158126321375146,0.012100758592138106,0.007771090270611847,0.007672972012505053,0.0073617629875964985,0.007250925886384263,0.006596616683768153,0.005290637220246863,0.004778590187486553,0.004751295097424113,0.004401631943612816,0.004390103702890391,0.004366816844100452,0.004260262754920419,0.00414338293647426,0.0037012779897474535,0.0034681548590279054,0.0033390207299404118,0.003306403343296127,0.0030744204769115324,0.002324280791550115,0.002179179769208478,0.002140641636984575,0.002135751287636947,0.001881607337179847,0.0018663928277711794,0.0017933792012221686,0.0015647402161477197,0.0015630186846546379,0.0014762978571102037,0.0014663322524521502,0.0014085137514719959,0.001401935122709752,0.001389663160754992,0.001385079878439499,0.0013671922117664825,0.001358009502046495,0.001338058840029216,0.00127673638608361,0.001214542838614656,0.0010902094666123477,0.0,0.0010615029854180724,1.0]},"selected":{"id":"1197"},"selection_policy":{"id":"1196"}},"id":"1162","type":"ColumnDataSource"},{"attributes":{"source":{"id":"1162"}},"id":"1188","type":"CDSView"},{"attributes":{},"id":"1191","type":"BasicTickFormatter"},{"attributes":{"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1184","type":"Line"},{"attributes":{"coordinates":null,"group":null,"text":"class: motobike AP = 65.83850931677017%"},"id":"1164","type":"Title"},{"attributes":{"axis_label":"Precision","axis_line_color":null,"coordinates":null,"formatter":{"id":"1191"},"group":null,"major_label_policy":{"id":"1192"},"ticker":{"id":"1179"}},"id":"1178","type":"LinearAxis"},{"attributes":{},"id":"1166","type":"DataRange1d"}],"root_ids":["1163"]},"title":"Bokeh Application","version":"2.4.3"}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('1321').textContent;
+              const render_items = [{"docid":"959a6010-dcf5-4c74-bfc7-54866daf1333","root_ids":["1163"],"roots":{"1163":"1a06e96b-969a-40ad-9bde-90b49c7f18e8"}}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

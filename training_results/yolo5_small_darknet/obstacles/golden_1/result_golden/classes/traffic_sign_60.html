@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>P-R curve for traffic_sign_60</title>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div class="bk-root" id="a0ac280a-7700-4e58-8775-b7477525d88c" data-root-id="1643"></div>
+  
+    <script type="application/json" id="1801">
+      {"43ef96ec-8c8e-437e-a511-16eac5b36c8e":{"defs":[],"roots":{"references":[{"attributes":{},"id":"1646","type":"DataRange1d"},{"attributes":{"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1664","type":"Line"},{"attributes":{"tools":[{"id":"1681"}]},"id":"1662","type":"Toolbar"},{"attributes":{},"id":"1675","type":"AllLabels"},{"attributes":{"line_alpha":0.2,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1666","type":"Line"},{"attributes":{"axis_label":"Precision","axis_line_color":null,"coordinates":null,"formatter":{"id":"1671"},"group":null,"major_label_policy":{"id":"1672"},"ticker":{"id":"1659"}},"id":"1658","type":"LinearAxis"},{"attributes":{"axis":{"id":"1654"},"coordinates":null,"grid_line_color":"white","group":null,"ticker":null},"id":"1657","type":"Grid"},{"attributes":{"line_alpha":0.1,"line_color":"#ebbd5b","line_width":2,"x":{"field":"rec"},"y":{"field":"prec"}},"id":"1665","type":"Line"},{"attributes":{"callback":{"id":"1680"},"formatters":{"prec":"printf","rec":"printf"},"mode":"vline","tooltips":[["score","@score{0.0000 a}"],["Prec","@prec"],["Recall","@rec"]]},"id":"1681","type":"HoverTool"},{"attributes":{},"id":"1648","type":"DataRange1d"},{"attributes":{"axis_label":"Recall","axis_line_color":null,"coordinates":null,"formatter":{"id":"1674"},"group":null,"major_label_policy":{"id":"1675"},"ticker":{"id":"1655"}},"id":"1654","type":"LinearAxis"},{"attributes":{},"id":"1659","type":"BasicTicker"},{"attributes":{"coordinates":null,"group":null,"text":"class: traffic_sign_60 AP = 48.87218045112782%"},"id":"1644","type":"Title"},{"attributes":{"coordinates":null,"data_source":{"id":"1642"},"glyph":{"id":"1664"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1666"},"nonselection_glyph":{"id":"1665"},"view":{"id":"1668"}},"id":"1667","type":"GlyphRenderer"},{"attributes":{"background_fill_color":"#f5f5f5","below":[{"id":"1654"}],"center":[{"id":"1657"},{"id":"1661"},{"id":"1678"}],"height":200,"js_event_callbacks":{"doubletap":[{"id":"1683"}]},"left":[{"id":"1658"}],"renderers":[{"id":"1667"}],"sizing_mode":"scale_width","title":{"id":"1644"},"toolbar":{"id":"1662"},"toolbar_location":null,"width":200,"x_range":{"id":"1646"},"x_scale":{"id":"1650"},"y_range":{"id":"1648"},"y_scale":{"id":"1652"}},"id":"1643","subtype":"Figure","type":"Plot"},{"attributes":{"code":"var data=cb_data.renderer.data_source.data;\n         var line_id=cb_data.index.line_indices[0];\n         var x=cb_data.geometry.x;\n         if(data['rec'][line_id+1]-x &gt; x-data['rec'][line_id])\n         {\n            window.spr_text=data['score'][line_id]+'\t'+data['prec'][line_id]+'\t'+data['rec'][line_id];\n         }\n         else\n         {\n            window.spr_text=data['score'][line_id+1]+'\t'+data['prec'][line_id+1]+'\t'+data['rec'][line_id+1];\n         }\n         "},"id":"1680","type":"CustomJS"},{"attributes":{},"id":"1674","type":"BasicTickFormatter"},{"attributes":{},"id":"1671","type":"BasicTickFormatter"},{"attributes":{},"id":"1655","type":"BasicTicker"},{"attributes":{"source":{"id":"1642"}},"id":"1668","type":"CDSView"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1679"}]},"id":"1678","type":"Legend"},{"attributes":{"axis":{"id":"1658"},"coordinates":null,"dimension":1,"grid_line_color":"white","group":null,"ticker":null},"id":"1661","type":"Grid"},{"attributes":{},"id":"1672","type":"AllLabels"},{"attributes":{},"id":"1676","type":"UnionRenderers"},{"attributes":{"label":{"value":"double click to copy P&amp;R"},"renderers":[{"id":"1667"}]},"id":"1679","type":"LegendItem"},{"attributes":{},"id":"1677","type":"Selection"},{"attributes":{},"id":"1652","type":"LinearScale"},{"attributes":{"data":{"prec":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.8571428571428571,0.75,0.6666666666666666,0.6,0.5454545454545454,0.5,0.46153846153846156,0.42857142857142855,0.42105263157894735,0.42105263157894735,0.42105263157894735,0.42105263157894735,0.42105263157894735,0.4,0.38095238095238093,0.36363636363636365,0.34782608695652173,0.3333333333333333,0.32,0.3076923076923077,0.2962962962962963,0.2857142857142857,0.27586206896551724,0.26666666666666666,0.25806451612903225,0.25,0.24242424242424243,0.23529411764705882,0.22857142857142856,0.2222222222222222,0.21621621621621623,0.21052631578947367,0.20512820512820512,0.2,0.1951219512195122,0.19047619047619047,0.18604651162790697,0.18181818181818182,0.17777777777777778,0.17391304347826086,0.1702127659574468,0.16666666666666666,0.16326530612244897,0.16,0.1568627450980392,0.15384615384615385,0.1509433962264151,0.14814814814814814,0.14545454545454545,0.14285714285714285,0.14035087719298245,0.13793103448275862,0.13559322033898305,0.13333333333333333,0.13114754098360656,0.12903225806451613,0.12698412698412698,0.125,0.12307692307692308,0.0,0.0],"rec":[0.0,0.07142857142857142,0.14285714285714285,0.21428571428571427,0.2857142857142857,0.35714285714285715,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.42857142857142855,0.5,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,0.5714285714285714,1.0],"score":[0.0,0.8046828355963704,0.797828140147999,0.7469450897739804,0.6708962588841416,0.5487678098067192,0.5248039975651011,0.4350653131428537,0.432287837860315,0.11339067377535628,0.09239193395815759,0.07545828676955857,0.06256402673300965,0.057898128263413895,0.03822379327367775,0.021100511690316348,0.018916390584212905,0.01615345921651301,0.015802955774425698,0.015356735461908855,0.014675958242191145,0.012368670844239538,0.011177094138820287,0.010907724477514535,0.006852365073907629,0.006439860695257815,0.00524637083827037,0.005097670637512042,0.005067841552962304,0.004974611873137191,0.004948648872551864,0.004591866275256762,0.00452233065637353,0.004200691163332992,0.0038394921434259377,0.003625727024363201,0.0034837492444661777,0.0034217102886144046,0.0031683503543503133,0.0029164602908431925,0.002910125647987094,0.002858705350941043,0.0025011895531019263,0.0021744636906336767,0.002073799283195399,0.001940613356267662,0.0019030318201443963,0.0018237503666035243,0.0017883675367774687,0.001772639571548787,0.0016951256316282137,0.0016683209029779572,0.001610273354448466,0.0016064345478436631,0.00158872029770242,0.001568183689756586,0.0015679304254914705,0.0015601075385435065,0.0014531278799136127,0.001410280490459992,0.0012732452086501728,0.0012243476709606835,0.001178797262566228,0.0011428437589280915,0.001114913115724099,0.0,0.0010019988925660805,1.0]},"selected":{"id":"1677"},"selection_policy":{"id":"1676"}},"id":"1642","type":"ColumnDataSource"},{"attributes":{},"id":"1650","type":"LinearScale"},{"attributes":{"code":"navigator.clipboard.writeText(window.spr_text);"},"id":"1683","type":"CustomJS"}],"root_ids":["1643"]},"title":"Bokeh Application","version":"2.4.3"}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('1801').textContent;
+              const render_items = [{"docid":"43ef96ec-8c8e-437e-a511-16eac5b36c8e","root_ids":["1643"],"roots":{"1643":"a0ac280a-7700-4e58-8775-b7477525d88c"}}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>
